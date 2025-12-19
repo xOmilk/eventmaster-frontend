@@ -1,9 +1,9 @@
-import { DefaultLayout } from '../../layouts/DefaultLayout';
+import { AuthLayout } from '../../layouts/AuthLayout';
 
 export function LoginPage() {
     return (
-        <DefaultLayout>
+        <AuthLayout>
             <p>Pagina de LOGIN</p>
-        </DefaultLayout>
+        </AuthLayout>
     );
 }

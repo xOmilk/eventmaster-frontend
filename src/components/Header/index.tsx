@@ -137,7 +137,7 @@ export function Header() {
                         <button
                             className={styles.authButton}
                             onClick={() => {
-                                navigate(PageRoutesName.auth.login);
+                                navigate(PageRoutesName.auth.register);
                             }}
                         >
                             <LogInIcon

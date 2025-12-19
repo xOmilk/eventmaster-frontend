@@ -1,0 +1,268 @@
+/* Form Card */
+.formCard {
+    width: 100%;
+    /* margin: 0 auto; */
+    background-color: var(--color-white);
+    color: var(--color-gray-900);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-gray-200);
+}
+
+.formContainer {
+    display: flex;
+    flex-flow: column;
+    align-items: start;
+    justify-content: start;
+    gap: 2rem;
+    padding: 1.5rem 1.5rem 0;
+}
+
+.formHeader {
+    display: flex;
+    flex-flow: column;
+    align-items: start;
+    gap: 1rem;
+}
+
+/* Form Title  */
+.formTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-gray-900);
+}
+
+/* Form Subtitle  */
+.formSubtitle {
+    color: var(--color-gray-500);
+    font-size: 1.4rem;
+    margin: 0;
+    line-height: 1.7rem;
+}
+
+/* Form Content  */
+
+.formContent {
+    width: 100%;
+}
+
+.formContent:last-child {
+    padding-bottom: 1.5rem;
+}
+
+/* Form*/
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.form > * + * {
+    margin-top: 1rem;
+}
+
+/* Form Field */
+.formField {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* AREA PRA COLOCAR DO INPUT CASO SEJA PASSWORD (EFEITO DE ABRIR FECHAR OLHO)*/
+
+.containerInput {
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.input {
+    flex: 1;
+    padding-right: 2.5rem; /* espaço para o botão do olho */
+}
+
+.eyeButton {
+    font-size: 1.3rem;
+    color: var(--color-gray-400);
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        transform 0.2s,
+        opacity 0.2s;
+}
+
+.eyeButton:active {
+    transform: translateY(-50%) scale(0.95) rotate(20deg);
+    opacity: 0.7;
+}
+
+/* FIM*/
+
+/* Form Label  */
+.formLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    font-weight: 600;
+    user-select: none;
+    color: var(--color-gray-900);
+}
+
+/* Input Wrapper*/
+.inputWrapper {
+    position: relative;
+    margin-top: 0.25rem;
+}
+
+/* Input Icon */
+.inputIcon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-gray-400);
+    width: 1.3rem;
+    height: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.inputIcon svg {
+    width: 2rem;
+    height: 2rem;
+}
+
+/* Form Input */
+/* Classes: flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base bg-input-background
+   border-input transition-[color,box-shadow] outline-none placeholder:text-muted-foreground
+   selection:bg-primary selection:text-primary-foreground focus-visible:border-ring
+   focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:pointer-events-none
+   disabled:cursor-not-allowed disabled:opacity-50 md:text-sm */
+.formInput {
+    padding: 1.5rem !important;
+    display: flex;
+    height: 2.25rem; /* h-9 */
+    width: 100%;
+    min-width: 0;
+    border-radius: 0.375rem;
+    border: 1px solid var(--color-gray-300);
+    font-size: 1.4rem;
+    background-color: var(--color-gray-50);
+    transition:
+        color 0.2s,
+        box-shadow 0.2s;
+    outline: none;
+    color: var(--color-gray-900);
+    line-height: 1.5;
+}
+
+.formInput::placeholder {
+    color: var(--color-gray-500);
+}
+
+.formInput::selection {
+    background-color: var(--color-indigo-600);
+    color: var(--color-white);
+}
+
+.formInput:focus-visible {
+    border-color: var(--color-indigo-600);
+    box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--color-indigo-600) 50%, transparent);
+}
+
+.formInput:disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.formInput[aria-invalid='true'] {
+    border-color: var(--color-red-600);
+    box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--color-red-600) 20%, transparent);
+}
+
+.formInputWithoutIcon {
+    text-indent: 0rem;
+}
+
+.formInputWithIcon {
+    text-indent: 1.5rem;
+    padding-left: 2.5rem;
+}
+
+/* Form Button */
+/* Classes: inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm
+   font-medium transition-all disabled:pointer-events-none disabled:opacity-50 outline-none
+   focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]
+   bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2 w-full */
+.formButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    border-radius: 0.375rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    outline: none;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    height: 2.25rem;
+    padding: 1.5rem 2rem;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+.formButton:hover {
+    background-color: color-mix(in srgb, var(--color-indigo-600) 90%, black);
+}
+
+.formButton:focus-visible {
+    border-color: var(--color-indigo-600);
+    box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--color-indigo-600) 50%, transparent);
+}
+
+.formButton:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.formButton[aria-invalid='true'] {
+    background-color: var(--color-red-600);
+    box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--color-red-600) 20%, transparent);
+}
+
+.formButton svg {
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+.formButton svg:not([class*='size-']) {
+    width: 2rem;
+    height: 2rem;
+}
