@@ -1,0 +1,290 @@
+/* 'bg-white border-b sticky top-0 z-50' */
+
+.navbarContainer {
+    background-color: var(--color-white);
+
+    border-bottom: 1px solid var(--color-gray-200);
+
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+/* 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8' */
+
+.navbarContainerWrapper {
+    max-width: 128rem;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+}
+
+/* 'flex justify-between items-center h-16' */
+
+.navbarSections {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 6.4rem;
+}
+
+.navbarSections svg:not([class*='size-']) {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+/*
+'flex items-center gap-8'
+*/
+
+.navbarFirstSection {
+    display: flex;
+    align-items: center;
+
+    gap: 3.2rem;
+}
+
+/*
+'flex items-center gap-2'
+*/
+
+.applicationArea {
+    cursor: pointer;
+    background-color: var(--color-white);
+    display: flex;
+    align-items: center;
+
+    gap: 0.8rem;
+    border: transparent;
+
+    svg {
+        width: 3.2rem !important;
+        height: 3.2rem !important;
+    }
+}
+
+.applicationArea span {
+    font-size: 2rem;
+    line-height: 2.8rem;
+
+    color: #4f46e5;
+}
+
+/* "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([className*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background text-foreground hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[&gt;svg]:px-3 gap-2" */
+
+.itemNavbar {
+    background-color: var(--color-white);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+    height: 3.6rem;
+    padding: 0.8rem 1.6rem;
+    gap: 0.8rem;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    font-weight: 500;
+    border-radius: 0.6rem;
+    border: transparent;
+    outline: none;
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.itemNavbar:hover {
+    cursor: pointer;
+    background-color: var(--color-gray-200);
+    color: var(--color-black);
+}
+
+.itemNavbar:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.itemNavbar:focus-visible {
+    border-color: var(--ring, #000);
+    box-shadow: 0 0 0 3px rgba(var(--ring-rgb, 0, 0, 0), 0.5);
+}
+
+.itemNavbar[aria-invalid='true'] {
+    border-color: var(--destructive, #ef4444);
+    box-shadow: 0 0 0 3px rgba(var(--destructive-rgb, 239, 68, 68), 0.2);
+}
+
+.itemNavbar svg {
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+.itemNavbar svg:not([class*='size-']) {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.itemNavbar:has(> svg) {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+}
+
+.clientArea {
+    position: relative !important;
+}
+
+/* inline-flex items-center justify-center rounded-md border font-medium w-fit whitespace-nowrap shrink-0 [&amp;&gt;svg]:size-3 gap-1 [&amp;&gt;svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent bg-destructive text-white [a&amp;]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 ml-1 px-1.5 py-0 text-xs */
+
+.badge {
+    /* --- Layout --- */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    white-space: nowrap;
+    flex-shrink: 0;
+    overflow: hidden;
+
+    gap: 0.4rem;
+
+    margin-left: 0.4rem;
+
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+
+    /* py-0 */
+    padding-top: 0;
+    padding-bottom: 0;
+
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    font-weight: 500;
+    color: #ffffff;
+
+    border-radius: 0.6rem;
+
+    border: 1px solid transparent;
+
+    background-color: var(--destructive, #ef4444);
+
+    transition-property: color, box-shadow;
+    transition-duration: 150ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.badge > svg {
+    pointer-events: none;
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.badge:focus-visible {
+    outline: none;
+    border-color: var(--ring, #000);
+
+    /* box-shadow: 0 0 0 3px rgba(var(--destructive-rgb, 239, 68, 68), 0.2); */
+}
+
+/* --- Validação (Aria Invalid) --- */
+.badge[aria-invalid='true'] {
+    border-color: var(--destructive, var(--color-red-500));
+    /* ring-destructive/20 */
+    box-shadow: 0 0 0 3px rgba(var(--destructive-rgb, 239, 68, 68), 0.2);
+}
+
+.beAnOrganizer {
+    border: 1px solid var(--color-gray-300);
+}
+
+/* "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([className*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2 has-[&gt;svg]:px-3 gap-2" */
+
+.authButton {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    height: 3.6rem;
+
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+
+    gap: 0.8rem;
+
+    font-size: 1.4rem;
+    line-height: 2rem;
+    font-weight: 500;
+
+    color: var(--color-white);
+
+    border-radius: 0.6rem;
+    outline: none;
+    border-color: transparent;
+
+    background-color: var(--color-black);
+
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    svg {
+        width: 2.4rem !important;
+        height: 2.4rem !important;
+    }
+}
+
+.authButton:hover {
+    opacity: 0.9;
+}
+
+.authButton:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.authButton:focus-visible {
+    border-color: var(--ring, #000);
+    /* ring-[3px] + ring-ring/50 */
+    box-shadow: 0 0 0 3px rgba(var(--ring-rgb, 0, 0, 0), 0.5);
+}
+
+.authButton[aria-invalid='true'] {
+    border-color: var(--destructive, #ef4444);
+    /* ring-destructive/20 */
+    box-shadow: 0 0 0 3px rgba(var(--destructive-rgb, 239, 68, 68), 0.2);
+}
+
+.authButton svg {
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+.authButton svg:not([class*='size-']) {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.authButton:has(> svg) {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    .destructive-badge {
+        background-color: rgba(var(--destructive-rgb, 239, 68, 68), 0.6);
+    }
+
+    .destructive-badge:focus-visible {
+        box-shadow: 0 0 0 3px rgba(var(--destructive-rgb, 239, 68, 68), 0.4);
+    }
+
+    .destructive-badge[aria-invalid='true'] {
+        box-shadow: 0 0 0 3px rgba(var(--destructive-rgb, 239, 68, 68), 0.4);
+    }
+}
