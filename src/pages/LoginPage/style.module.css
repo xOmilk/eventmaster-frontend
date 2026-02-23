@@ -17,3 +17,22 @@
     font-size: small;
     color: red;
 }
+
+.forgotPasswordContainer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+    margin-bottom: 16px;
+}
+
+.forgotPasswordLink {
+    font-size: 1.3rem;
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgotPasswordLink:hover {
+    text-decoration: underline;
+}

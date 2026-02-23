@@ -3,12 +3,16 @@ import { Form } from '../../components/Form';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate, Link } from 'react-router-dom';
 
 import styles from './style.module.css';
 import { AuthLayout } from '../../layouts/AuthLayout';
 
 const registerSchema = z.object({
-    email: z.email('Digite um email válido').min(1, 'Email é obrigatório'),
+    email: z
+        .string()
+        .email('Digite um email válido')
+        .min(1, 'Email é obrigatório'),
 
     password: z
         .string()
@@ -19,16 +23,34 @@ const registerSchema = z.object({
 export function LoginPage() {
     const {
         register,
-        formState: { errors, isSubmitSuccessful },
+        handleSubmit,
+        setError,
+        formState: { errors, isSubmitting },
     } = useForm({
         resolver: zodResolver(registerSchema),
     });
+
+    const onSubmit = async () => {
+        try {
+            // 🔐 Aqui futuramente você chama a API
+            // await authService.login(data);
+
+            // ✅ Se deu certo → redireciona
+            navigate('/');
+        } catch {
+            // ❌ Se login falhar
+            setError('root', {
+                message: 'Email ou senha incorretos',
+            });
+        }
+    };
+    const navigate = useNavigate();
 
     return (
         <AuthLayout>
             <header></header>
 
-            <Form>
+            <Form onSubmit={handleSubmit(onSubmit)}>
                 <Form.Header>
                     <Form.Title children={'Entrar na sua conta'} />
                     <Form.Subtitle
@@ -69,21 +91,21 @@ export function LoginPage() {
                             </p>
                         )}
                     </div>
-
-                    <Form.SendButton>Entrar</Form.SendButton>
-                    {errors.root?.message && (
-                        <p className={styles.error}>{errors.root?.message}</p>
-                    )}
-                    {isSubmitSuccessful && (
-                        <p
-                            style={{
-                                color: 'var(--color-green-600)',
-                                fontSize: 14,
-                                textAlign: 'center',
-                            }}
+                    <div className={styles.forgotPasswordContainer}>
+                        <Link
+                            to="/auth/ForgotPassword"
+                            className={styles.forgotPasswordLink}
                         >
-                            Login realizado com sucesso
-                        </p>
+                            Esqueceu a senha?
+                        </Link>
+                    </div>
+
+                    <Form.SendButton disabled={isSubmitting}>
+                        {isSubmitting ? 'Entrando...' : 'Entrar'}
+                    </Form.SendButton>
+
+                    {errors.root?.message && (
+                        <p className={styles.error}>{errors.root.message}</p>
                     )}
                 </Form.Content>
             </Form>
