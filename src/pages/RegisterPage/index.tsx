@@ -6,6 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import styles from './style.module.css';
 import { AuthLayout } from '../../layouts/AuthLayout';
+import { notify } from '../../adapters/toastHotAdapter';
+import { useNavigate } from 'react-router';
+import PageRoutesName from '../../constants/PageRoutesName';
 
 const registerSchema = z
     .object({
@@ -61,10 +64,14 @@ export function RegisterPage() {
         resolver: zodResolver(registerSchema),
     });
 
+     const navigate = useNavigate();
+
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         if (data.confirmPassword === data.password) {
             try {
                 //BLOCO PRA CHAMADA DA API;
+                notify.sucess('Sua conta  foi criada com sucesso, Faça login.');
+                navigate(PageRoutesName.auth.login)
             } catch (error) {
                 console.log(error);
             }
