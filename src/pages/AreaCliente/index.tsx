@@ -11,7 +11,7 @@ import {
 import { useState } from 'react';
 import styles from './style.module.css';
 import { DefaultLayout } from '../../layouts/DefaultLayout';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 export function AreaClientePage() {
     const [activeTab, setActiveTab] = useState<'tickets' | 'history'>(
