@@ -65,6 +65,11 @@ export function Header() {
                                 <>
                                     <button
                                         className={`${styles.itemNavbar}  ${styles.clientArea}`}
+                                        onClick={() => {
+                                            navigate(
+                                                PageRoutesName.auth.areaCliente
+                                            );
+                                        }}
                                     >
                                         <LucideShoppingBag
                                             width={24}

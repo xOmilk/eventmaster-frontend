@@ -1,0 +1,256 @@
+/* Layout Base */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    min-width: 900px;
+    padding: 2rem;
+    font-family:
+        system-ui,
+        -apple-system,
+        sans-serif;
+    color: #374151; /* gray-700 */
+    /* Aumentei a fonte base do container */
+    font-size: 1.125rem;
+}
+
+/* Botão Voltar */
+.backButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem; /* Aumentado */
+    font-weight: 500;
+    color: #111827; /* gray-900 */
+    padding: 0;
+    margin-bottom: 2rem;
+}
+
+.pageTitle {
+    font-size: 1.75rem; /* Aumentado de 1.5rem para 1.75rem */
+    font-weight: 600; /* Deixei um pouco mais negrito para destacar */
+    color: #111827;
+    margin-bottom: 1.5rem;
+}
+
+/* Tabs */
+.tabsContainer {
+    display: flex;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem; /* Aumentei o espaço entre o ícone e o texto */
+    padding: 1.25rem 1rem; /* Aumentei o padding para o botão ficar maior */
+    background: white;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    color: #6b7280; /* gray-500 */
+    font-weight: 500;
+    font-size: 1.3rem; /* Aumentado */
+    transition: all 0.2s;
+}
+
+.activeTab {
+    color: #4f46e5; /* purple */
+    border-bottom-color: #4f46e5;
+}
+
+.badgeCount {
+    background-color: #f3f4f6; /* gray-100 */
+    color: #374151;
+    padding: 0.2rem 0.8rem;
+    border-radius: 1rem;
+    font-size: 1.2rem; /* Aumentado */
+}
+
+.subtitle {
+    color: #6b7280;
+    font-size: 1.2rem; /* Aumentado */
+    margin-bottom: 2rem;
+}
+
+/* Card de Filtros */
+.filtersCard {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    background: white;
+}
+
+.filtersHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    color: #111827;
+    font-size: 1.125rem; /* Aumentado */
+}
+
+.filtersRow {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+}
+
+.inputGroup {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inputGroup label {
+    font-size: 1.125rem; /* Aumentado */
+    color: #6b7280;
+}
+
+.selectInput {
+    padding: 0.875rem 1rem; /* Aumentei o padding interno do select */
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background-color: #f9fafb;
+    color: #374151;
+    font-size: 1.4rem; /* Aumentado */
+    outline: none;
+}
+
+.exportButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1.4rem; /* Aumentado */
+    color: #111827;
+    height: 40px; /* Ajustado para acompanhar o novo tamanho do select */
+}
+
+/* Card do Histórico */
+.historyCard {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 2rem; /* Aumentei o padding interno do card */
+    background: white;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.eventTitle {
+    font-size: 2rem; /* Aumentado de 1.125rem para 1.375rem */
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+}
+
+.statusBadgeGreen {
+    background-color: #22c55e; /* green-500 */
+    color: white;
+    padding: 0.35rem 1rem;
+    border-radius: 1rem;
+    font-size: 1.1rem; /* Aumentado */
+    font-weight: 600;
+}
+
+.eventInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6b7280;
+    font-size: 1.125rem; /* Aumentado */
+    margin-bottom: 2.5rem;
+}
+
+.location {
+    margin-left: 0.5rem;
+}
+
+/* Grid de Detalhes */
+.detailsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem 1.5rem; /* Aumentado o espaço entre as informações */
+    margin-bottom: 2.5rem;
+}
+
+.detailItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.detailLabel {
+    font-size: 1.3rem; /* Aumentado de 0.75rem para 0.9rem */
+    color: #6b7280;
+}
+
+.detailValue {
+    font-size: 1.125rem; /* Aumentado de 0.875rem para 1.125rem */
+    color: #111827;
+    font-weight: 500;
+}
+
+.detailValueWithIcon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem; /* Aumentado */
+    color: #111827;
+    font-weight: 500;
+}
+
+.detailValueWithIconWarning {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem; /* Aumentado */
+    color: #d97706; /* amber-600 */
+    font-weight: 500;
+}
+
+/* Ações do Card */
+.cardActions {
+    display: flex;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f3f4f6; /* Adicionei uma linha sutil para separar os botões do conteúdo */
+}
+
+.outlineButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem; /* Botões mais gordinhos */
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1.3rem; /* Aumentado */
+    color: #111827;
+    transition: background-color 0.2s;
+}
+
+.outlineButton:hover {
+    background-color: #f9fafb;
+}

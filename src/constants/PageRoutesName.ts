@@ -4,6 +4,7 @@ const PageRoutesName = {
         login: '/auth/login',
         register: '/auth/register',
         userConfig: '/auth/config',
+        areaCliente: '/auth/AreaCliente',
     },
 };
 
