@@ -67,8 +67,8 @@
 }
 
 .badgeCount {
-    background-color: #f3f4f6; /* gray-100 */
-    color: #374151;
+    background-color: #000000; /* gray-100 */
+    color: #ffffff;
     padding: 0.2rem 0.8rem;
     border-radius: 1rem;
     font-size: 1.2rem; /* Aumentado */
@@ -253,4 +253,137 @@
 
 .outlineButton:hover {
     background-color: #f9fafb;
+}
+
+.ticketCard {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ticketCardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.statusBadgeNext {
+    background: #1a1a2e;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.orderId {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.eventTags {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.categoryTag {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.vipTag {
+    background: #ede9fe;
+    color: #7c3aed;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 20px;
+}
+
+.ticketInfoGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 16px 0;
+    border-top: 1px solid #f3f4f6;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.ticketInfoItem {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.infoIcon {
+    color: #7c3aed;
+    margin-bottom: 4px;
+}
+
+.infoLabel {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+.infoValue {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.infoSubValue {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.qrCodeSection {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #f9fafb;
+    border: 1px dashed #d1d5db;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.qrCodeBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    flex-shrink: 0;
+}
+
+.qrCodeInfo strong {
+    font-size: 15px;
+    color: #111827;
+}
+
+.qrCodeInfo p {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 4px 0 0;
+}
+
+.refundButton {
+    background: transparent;
+    border: none;
+    color: #ef4444;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 12px;
+}
+
+.refundButton:hover {
+    text-decoration: underline;
 }

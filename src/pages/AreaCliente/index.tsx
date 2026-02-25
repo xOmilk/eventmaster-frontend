@@ -7,6 +7,8 @@ import {
     Calendar,
     CreditCard,
     Clock,
+    MapPin,
+    QrCode,
 } from 'lucide-react';
 import { useState } from 'react';
 import styles from './style.module.css';
@@ -87,109 +89,146 @@ export function AreaClientePage() {
                     </div>
                 </div>
 
-                {/* Card de Histórico (Exemplo da Foto) */}
-                <div className={styles.historyCard}>
-                    <div className={styles.cardHeader}>
-                        <h2 className={styles.eventTitle}>
-                            Festival de Música Eletrônica 2025
-                        </h2>
-                        <span className={styles.statusBadgeGreen}>
-                            Confirmado
-                        </span>
-                    </div>
-
-                    <div className={styles.eventInfo}>
-                        <Calendar size={16} />
-                        <span>14/12/2025</span>
-                        <span className={styles.location}>
-                            Estádio Nacional, São Paulo
-                        </span>
-                    </div>
-
-                    <div className={styles.detailsGrid}>
-                        {/* Coluna 1 */}
-                        <div className={styles.detailItem}>
-                            <span className={styles.detailLabel}>
-                                ID da Compra
-                            </span>
-                            <span className={styles.detailValue}>PUR-001</span>
-                        </div>
-                        {/* Coluna 2 */}
-                        <div className={styles.detailItem}>
-                            <span className={styles.detailLabel}>
-                                Data da Compra
-                            </span>
-                            <span className={styles.detailValue}>
-                                09/11/2025
-                            </span>
-                        </div>
-                        {/* Coluna 3 */}
-                        <div className={styles.detailItem}>
-                            <span className={styles.detailLabel}>
-                                Tipo de Ingresso
-                            </span>
-                            <span className={styles.detailValue}>
-                                Pista - Inteira
-                            </span>
-                        </div>
-                        {/* Coluna 4 */}
-                        <div className={styles.detailItem}>
-                            <span className={styles.detailLabel}>
-                                Quantidade
-                            </span>
-                            <span className={styles.detailValue}>
-                                2 ingresso(s)
+                {/* Conteúdo da aba Histórico de Compras */}
+                {activeTab === 'history' && (
+                    <div className={styles.historyCard}>
+                        <div className={styles.cardHeader}>
+                            <h2 className={styles.eventTitle}>
+                                Festival de Música Eletrônica 2025
+                            </h2>
+                            <span className={styles.statusBadgeGreen}>
+                                Confirmado
                             </span>
                         </div>
 
-                        {/* Linha 2 - Coluna 1 */}
-                        <div className={styles.detailItem}>
-                            <span className={styles.detailLabel}>
-                                Valor Unitário
-                            </span>
-                            <span className={styles.detailValue}>
-                                R$ 150,00
+                        <div className={styles.eventInfo}>
+                            <Calendar size={16} />
+                            <span>14/12/2025</span>
+                            <span className={styles.location}>
+                                Estádio Nacional, São Paulo
                             </span>
                         </div>
-                        {/* Linha 2 - Coluna 2 */}
-                        <div className={styles.detailItem}>
-                            <span className={styles.detailLabel}>
-                                Valor Total
-                            </span>
-                            <span className={styles.detailValue}>
-                                R$ 300,00
-                            </span>
-                        </div>
-                        {/* Linha 2 - Coluna 3 */}
-                        <div className={styles.detailItem}>
-                            <span className={styles.detailLabel}>
-                                Forma de Pagamento
-                            </span>
-                            <span className={styles.detailValueWithIcon}>
-                                <CreditCard size={16} /> Cartão de Crédito
-                            </span>
-                        </div>
-                        {/* Linha 2 - Coluna 4 */}
-                        <div className={styles.detailItem}>
-                            <span className={styles.detailLabel}>
-                                Ingressos Utilizados
-                            </span>
-                            <span className={styles.detailValueWithIconWarning}>
-                                <Clock size={16} /> Não utilizado
-                            </span>
-                        </div>
-                    </div>
 
-                    <div className={styles.cardActions}>
-                        <button className={styles.outlineButton}>
-                            Ver Ingressos
-                        </button>
-                        <button className={styles.outlineButton}>
-                            <Download size={16} />
-                            Baixar Comprovante
-                        </button>
+                        <div className={styles.detailsGrid}>
+                            <div className={styles.detailItem}>
+                                <span className={styles.detailLabel}>ID da Compra</span>
+                                <span className={styles.detailValue}>PUR-001</span>
+                            </div>
+                            <div className={styles.detailItem}>
+                                <span className={styles.detailLabel}>Data da Compra</span>
+                                <span className={styles.detailValue}>09/11/2025</span>
+                            </div>
+                            <div className={styles.detailItem}>
+                                <span className={styles.detailLabel}>Tipo de Ingresso</span>
+                                <span className={styles.detailValue}>Pista - Inteira</span>
+                            </div>
+                            <div className={styles.detailItem}>
+                                <span className={styles.detailLabel}>Quantidade</span>
+                                <span className={styles.detailValue}>2 ingresso(s)</span>
+                            </div>
+                            <div className={styles.detailItem}>
+                                <span className={styles.detailLabel}>Valor Unitário</span>
+                                <span className={styles.detailValue}>R$ 150,00</span>
+                            </div>
+                            <div className={styles.detailItem}>
+                                <span className={styles.detailLabel}>Valor Total</span>
+                                <span className={styles.detailValue}>R$ 300,00</span>
+                            </div>
+                            <div className={styles.detailItem}>
+                                <span className={styles.detailLabel}>Forma de Pagamento</span>
+                                <span className={styles.detailValueWithIcon}>
+                                    <CreditCard size={16} /> Cartão de Crédito
+                                </span>
+                            </div>
+                            <div className={styles.detailItem}>
+                                <span className={styles.detailLabel}>Ingressos Utilizados</span>
+                                <span className={styles.detailValueWithIconWarning}>
+                                    <Clock size={16} /> Não utilizado
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className={styles.cardActions}>
+                            <button className={styles.outlineButton}>
+                                Ver Ingressos
+                            </button>
+                            <button className={styles.outlineButton}>
+                                <Download size={16} />
+                                Baixar Comprovante
+                            </button>
+                        </div>
                     </div>
-                </div>
+                )}
+
+                {/* Conteúdo da aba Meus Ingressos */}
+                {activeTab === 'tickets' && (
+                    <div className={styles.ticketCard}>
+        {/* Cabeçalho do card */}
+        <div className={styles.ticketCardHeader}>
+            <span className={styles.statusBadgeNext}>Próximo</span>
+            <span className={styles.orderId}>Pedido #000001</span>
+        </div>
+
+        {/* Nome e categoria do evento */}
+        <h2 className={styles.eventTitle}>Conferência Tech Brasil 2025</h2>
+        <div className={styles.eventTags}>
+            <span className={styles.categoryTag}>Tecnologia</span>
+            <span className={styles.vipTag}>VIP</span>
+        </div>
+
+        {/* Informações: Data, Local, Ingressos */}
+        <div className={styles.ticketInfoGrid}>
+            <div className={styles.ticketInfoItem}>
+                <Calendar size={18} className={styles.infoIcon} />
+                <span className={styles.infoLabel}>Data</span>
+                <span className={styles.infoValue}>19/03/2026</span>
+                <span className={styles.infoSubValue}>09:00</span>
+            </div>
+
+            <div className={styles.ticketInfoItem}>
+                <MapPin size={18} className={styles.infoIcon} />
+                <span className={styles.infoLabel}>Local</span>
+                <span className={styles.infoValue}>Centro de Convenções, Brasília</span>
+            </div>
+
+            <div className={styles.ticketInfoItem}>
+                <QrCode size={18} className={styles.infoIcon} />
+                <span className={styles.infoLabel}>Ingressos</span>
+                <span className={styles.infoValue}>1x Ingresso(s)</span>
+                <span className={styles.infoSubValue}>R$ 350,00</span>
+            </div>
+        </div>
+
+        {/* QR Code */}
+        <div className={styles.qrCodeSection}>
+            <div className={styles.qrCodeBox}>
+                <QrCode size={64} color="#aaa" />
+            </div>
+            <div className={styles.qrCodeInfo}>
+                <strong>QR Code de Acesso</strong>
+                <p>Apresente este QR Code na entrada do evento para validar seu ingresso.</p>
+            </div>
+        </div>
+
+        {/* Ações */}
+        <div className={styles.cardActions}>
+            <button className={styles.outlineButton}>
+                <Download size={16} />
+                Baixar Ingresso
+            </button>
+            <button className={styles.outlineButton}>
+                <QrCode size={16} />
+                Ver QR Code
+            </button>
+            <button className={styles.outlineButton}>
+                Ver Detalhes
+            </button>
+            <button className={styles.refundButton}>
+                Solicitar Reembolso
+            </button>
+        </div>
+    </div>
+                )}
             </div>
         </DefaultLayout>
     );
