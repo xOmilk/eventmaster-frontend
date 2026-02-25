@@ -86,6 +86,11 @@ export function Header() {
                             {!isOrganizador && !(isStaff || isAdmin) && (
                                 <button
                                     className={`${styles.itemNavbar} ${styles.beAnOrganizer}`}
+                                    onClick={() => {
+                                        navigate(
+                                            PageRoutesName.auth.sejaOrganizador
+                                        );
+                                    }}
                                 >
                                     <Building2Icon
                                         width={24}
