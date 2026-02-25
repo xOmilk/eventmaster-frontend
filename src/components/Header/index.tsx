@@ -5,6 +5,7 @@ import {
     LogInIcon,
     LucideQrCode,
     LucideShoppingBag,
+    SettingsIcon,
     TicketIcon,
 } from 'lucide-react';
 
@@ -14,6 +15,7 @@ import PageRoutesName from '../../constants/PageRoutesName';
 import { getLocalStorageRole } from '../../utils/localStorageRole';
 import { removeUserDataLocalStorage } from '../../utils/removeUserData';
 import { getUserRoleTextInformation } from '../../utils/getUserRoleTextInformation';
+import { notify } from '../../adapters/toastHotAdapter';
 
 export function Header() {
     const navigate = useNavigate();
@@ -33,6 +35,7 @@ export function Header() {
                 <div className={styles.navbarSections}>
                     <div className={styles.navbarFirstSection}>
                         <button
+                            style={{ cursor: 'pointer' }}
                             className={styles.applicationArea}
                             onClick={() => {
                                 navigate(PageRoutesName.home);
@@ -147,35 +150,51 @@ export function Header() {
                         </div>
                     </div>
                     <div
+                        style={{ gap: '2rem' }}
                         className={
                             styles.applicationArea || 'flex items-center gap-3'
                         }
                     >
                         {getLocalStorageRole() && (
-                            <div className={styles.roleUserContainer}>
-                                <span className={styles.roleUserText}>
-                                    Visualizando como
-                                </span>{' '}
-                                <span className={styles.roleUser}>
-                                    {getUserRoleTextInformation()}
-                                </span>
-                            </div>
+                            <>
+                                <div>
+                                    <button
+                                        className={`${styles.itemNavbar} `}
+                                        onClick={() => {
+                                            navigate(
+                                                PageRoutesName.auth.userConfig
+                                            );
+                                        }}
+                                    >
+                                        <SettingsIcon
+                                            className={styles.configIcon}
+                                            strokeWidth={2}
+                                        />
+                                        <span>Configurações</span>
+                                    </button>
+                                </div>
+
+                                <div className={styles.roleUserContainer}>
+                                    <span className={styles.roleUserText}>
+                                        Visualizando como
+                                    </span>{' '}
+                                    <span className={styles.roleUser}>
+                                        {getUserRoleTextInformation()}
+                                    </span>
+                                </div>
+                            </>
                         )}
                         <button
                             className={styles.authButton}
                             onClick={() => {
                                 if (isLoggedOut) {
-                                    navigate(PageRoutesName.auth.register);
+                                    navigate(PageRoutesName.auth.login);
                                 } else {
                                     removeUserDataLocalStorage();
-                                    if (
-                                        location.pathname ===
-                                        PageRoutesName.home
-                                    ) {
-                                        window.location.reload();
-                                    } else {
-                                        navigate(PageRoutesName.home);
-                                    }
+                                    navigate(PageRoutesName.home);
+                                    notify.success(
+                                        'Você deslogou da sua conta.'
+                                    );
                                 }
                             }}
                         >
