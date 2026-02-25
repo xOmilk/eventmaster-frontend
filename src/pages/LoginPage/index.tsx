@@ -1,13 +1,16 @@
 import { LockIcon, MailIcon } from 'lucide-react';
 import { Form } from '../../components/Form';
-import { useForm } from 'react-hook-form';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import styles from './style.module.css';
 import { AuthLayout } from '../../layouts/AuthLayout';
+import { notify } from '../../adapters/toastHotAdapter';
+import { useNavigate } from 'react-router';
+import PageRoutesName from '../../constants/PageRoutesName';
 
-const registerSchema = z.object({
+const loginSchema = z.object({
     email: z.email('Digite um email válido').min(1, 'Email é obrigatório'),
 
     password: z
@@ -16,13 +19,25 @@ const registerSchema = z.object({
         .max(30, 'A senha precisa ter no máximo 30 dígitos'),
 });
 
+type LoginFields = z.infer<typeof loginSchema>;
+
 export function LoginPage() {
     const {
         register,
+        handleSubmit,
         formState: { errors, isSubmitSuccessful },
     } = useForm({
-        resolver: zodResolver(registerSchema),
+        resolver: zodResolver(loginSchema),
     });
+
+    const navigate = useNavigate();
+
+    const onSubmit: SubmitHandler<LoginFields> = async (data) => {
+        //TODO: verificação se o usuario realmente existe pela chamada API
+        notify.success('Conta logada');
+        console.log(data); //retirar
+        navigate(PageRoutesName.home);
+    };
 
     return (
         <AuthLayout>
@@ -38,7 +53,7 @@ export function LoginPage() {
                     />
                 </Form.Header>
 
-                <Form.Content>
+                <Form.Content onSubmit={handleSubmit(onSubmit)}>
                     <div className={styles.group}>
                         <Form.Input
                             {...register('email')}
