@@ -43,7 +43,10 @@ export function AreaClientePage() {
                     >
                         <Ticket size={18} />
                         Meus Ingressos
-                        <span className={styles.badgeCount}>1</span>
+                        <span
+                        className={`${styles.badgeCount} ${activeTab === 'tickets' ? styles.badgeActive : styles.badgeInactive}`}>
+                        1
+                        </span>
                     </button>
 
                     <button
@@ -55,14 +58,18 @@ export function AreaClientePage() {
                     </button>
                 </div>
 
-                {/* Subtítulo */}
-                <p className={styles.subtitle}>
-                    Acompanhe todas as suas compras e reembolsos
-                </p>
 
-                {/* Seção de Filtros */}
-                <div className={styles.filtersCard}>
-                    <div className={styles.filtersHeader}>
+                {/* Conteúdo da aba Histórico de Compras */}
+                {activeTab === 'history' && (
+                    <>
+                    {/* Subtítulo */}
+                     <p className={styles.subtitle}>
+                    Acompanhe todas as suas compras e reembolsos
+                    </p>
+
+                     {/* Seção de Filtros */}
+                    <div className={styles.filtersCard}>
+                        <div className={styles.filtersHeader}>
                         <Filter size={18} />
                         <strong>Filtros</strong>
                     </div>
@@ -89,8 +96,6 @@ export function AreaClientePage() {
                     </div>
                 </div>
 
-                {/* Conteúdo da aba Histórico de Compras */}
-                {activeTab === 'history' && (
                     <div className={styles.historyCard}>
                         <div className={styles.cardHeader}>
                             <h2 className={styles.eventTitle}>
@@ -158,6 +163,7 @@ export function AreaClientePage() {
                             </button>
                         </div>
                     </div>
+                </>                
                 )}
 
                 {/* Conteúdo da aba Meus Ingressos */}

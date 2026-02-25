@@ -346,7 +346,7 @@
     align-items: center;
     gap: 20px;
     background: #f9fafb;
-    border: 1px dashed #d1d5db;
+    border: 1px solid #d1d5db;
     border-radius: 10px;
     padding: 20px;
 }
@@ -359,7 +359,7 @@
     height: 90px;
     background: #fff;
     border-radius: 8px;
-    border: 1px solid #e5e7eb;
+    border: 2px dashed #e5e7eb;
     flex-shrink: 0;
 }
 
@@ -376,7 +376,8 @@
 
 .refundButton {
     background: transparent;
-    border: none;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
     color: #ef4444;
     font-size: 14px;
     font-weight: 500;
@@ -385,5 +386,15 @@
 }
 
 .refundButton:hover {
-    text-decoration: underline;
+    background-color: #f9fafb;
+}
+
+.badgeActive {
+    background: #1a1a2e;
+    color: #fff;
+}
+
+.badgeInactive {
+    background: #e5e7eb;
+    color: #374151;
 }
