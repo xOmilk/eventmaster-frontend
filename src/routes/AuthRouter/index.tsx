@@ -6,7 +6,6 @@ import { ForgotPasswordPage } from '../../pages/ForgotPassword';
 import { NotFoundPage } from '../../pages/NotFoundPage';
 import { HomePage } from '../../pages/HomePage';
 import { AreaClientePage } from '../../pages/AreaCliente';
-import { SejaOrganizadorPage } from '../../pages/SejaOrganizador';
 
 export function AuthRouter() {
     return (
@@ -19,10 +18,6 @@ export function AuthRouter() {
                 element={<ForgotPasswordPage />}
             ></Route>
             <Route path="AreaCliente" element={<AreaClientePage />}></Route>
-            <Route
-                path="SejaOrganizador"
-                element={<SejaOrganizadorPage />}
-            ></Route>
             <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
     );

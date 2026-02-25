@@ -5,7 +5,10 @@ const PageRoutesName = {
         register: '/auth/register',
         userConfig: '/auth/config',
         areaCliente: '/auth/AreaCliente',
-        sejaOrganizador: '/auth/SejaOrganizador',
+    },
+    organizador: {
+        getOrganizadores: 'organizer/getOrganizers',
+        sejaOrganizador: '/organizer/SejaOrganizador',
     },
 };
 
