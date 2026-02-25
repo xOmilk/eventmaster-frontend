@@ -1,7 +1,7 @@
 import { localStorageNameRole } from '../constants/localStorageNameRole';
 import type { RoleTypes } from '../types/User';
 
-export function setLocalStorageRole(role: string) {
+export function setLocalStorageRole(role: RoleTypes) {
     localStorage.setItem(localStorageNameRole, role);
 }
 
