@@ -9,6 +9,7 @@ import { AuthLayout } from '../../layouts/AuthLayout';
 import { notify } from '../../adapters/toastHotAdapter';
 import { useNavigate } from 'react-router';
 import PageRoutesName from '../../constants/PageRoutesName';
+import { setLocalStorageRole } from '../../utils/localStorageRole';
 
 const loginSchema = z.object({
     email: z.email('Digite um email válido').min(1, 'Email é obrigatório'),
@@ -35,7 +36,8 @@ export function LoginPage() {
     const onSubmit: SubmitHandler<LoginFields> = async (data) => {
         //TODO: verificação se o usuario realmente existe pela chamada API
         notify.success('Conta logada');
-        console.log(data); //retirar
+        //isso deve ser setado baseado no valor que API retornar quando efetuar chamada
+        setLocalStorageRole('USUARIO');
         navigate(PageRoutesName.home);
     };
 

@@ -9,13 +9,19 @@ import {
 } from 'lucide-react';
 
 import styles from './styles.module.css';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import PageRoutesName from '../../constants/PageRoutesName';
 import { getLocalStorageRole } from '../../utils/localStorageRole';
+import { removeUserDataLocalStorage } from '../../utils/removeUserData';
+import { getUserRoleTextInformation } from '../../utils/getUserRoleTextInformation';
 
 export function Header() {
     const navigate = useNavigate();
+    const location = useLocation();
 
+    const isActive = (path: string) => location.pathname === path;
+
+    const isLoggedOut = getLocalStorageRole() === null;
     const isUsuario = getLocalStorageRole() === 'USUARIO';
     const isOrganizador = getLocalStorageRole() === 'ORGANIZADOR';
     const isStaff = getLocalStorageRole() === 'STAFF';
@@ -36,7 +42,7 @@ export function Header() {
                                 strokeWidth={2}
                                 color="var(--color-indigo-600)"
                             />
-                            <span>EventMaster</span>
+                            <span className={styles.title}>EventMaster</span>
                         </button>
                         <div
                             style={{
@@ -47,7 +53,7 @@ export function Header() {
                             className="hidden md:flex items-center gap-4"
                         >
                             <button
-                                className={styles.itemNavbar}
+                                className={`${styles.itemNavbar} ${isActive(PageRoutesName.home) ? styles.active : ''}`}
                                 onClick={() => {
                                     navigate(PageRoutesName.home);
                                 }}
@@ -64,7 +70,7 @@ export function Header() {
                             {isUsuario && (
                                 <>
                                     <button
-                                        className={`${styles.itemNavbar}  ${styles.clientArea}`}
+                                        className={`${styles.itemNavbar} ${styles.clientArea} ${isActive(PageRoutesName.auth.areaCliente) ? styles.active : ''}`}
                                         onClick={() => {
                                             navigate(
                                                 PageRoutesName.auth.areaCliente
@@ -85,10 +91,11 @@ export function Header() {
                             {/* CASO NAO SEJA NENHUM CARGO DE IMPORTANCIA */}
                             {!isOrganizador && !(isStaff || isAdmin) && (
                                 <button
-                                    className={`${styles.itemNavbar} ${styles.beAnOrganizer}`}
+                                    className={`${styles.itemNavbar} ${styles.beAnOrganizer} `}
                                     onClick={() => {
                                         navigate(
-                                            PageRoutesName.auth.sejaOrganizador
+                                            PageRoutesName.organizador
+                                                .sejaOrganizador
                                         );
                                     }}
                                 >
@@ -144,10 +151,32 @@ export function Header() {
                             styles.applicationArea || 'flex items-center gap-3'
                         }
                     >
+                        {getLocalStorageRole() && (
+                            <div className={styles.roleUserContainer}>
+                                <span className={styles.roleUserText}>
+                                    Visualizando como
+                                </span>{' '}
+                                <span className={styles.roleUser}>
+                                    {getUserRoleTextInformation()}
+                                </span>
+                            </div>
+                        )}
                         <button
                             className={styles.authButton}
                             onClick={() => {
-                                navigate(PageRoutesName.auth.register);
+                                if (isLoggedOut) {
+                                    navigate(PageRoutesName.auth.register);
+                                } else {
+                                    removeUserDataLocalStorage();
+                                    if (
+                                        location.pathname ===
+                                        PageRoutesName.home
+                                    ) {
+                                        window.location.reload();
+                                    } else {
+                                        navigate(PageRoutesName.home);
+                                    }
+                                }
                             }}
                         >
                             <LogInIcon
@@ -156,7 +185,11 @@ export function Header() {
                                 strokeWidth={2}
                                 color="var(--color-white)"
                             />
-                            Entrar / Cadastrar
+                            {isLoggedOut ? (
+                                <p>Entrar / Cadastrar</p>
+                            ) : (
+                                <p>Sair</p>
+                            )}
                         </button>
                     </div>
                 </div>
