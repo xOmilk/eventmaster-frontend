@@ -3,6 +3,9 @@ import PageRoutesName from '../../constants/PageRoutesName';
 import { HomePage } from '../../pages/HomePage';
 import { AuthRouter } from '../AuthRouter';
 import { NotFoundPage } from '../../pages/NotFoundPage';
+import { OrganizerRouter } from '../OrganizerRouter';
+import { ClientRouter } from '../ClientRouter';
+import { AdminRouter } from '../AdminRouter';
 import { ManageOrganizers } from '../../pages/ManageOrganizers';
 import EventDetailsPage from '../../pages/EventDetails/EventDetailsPage';
 import { Checkout } from '../../pages/Checkout';
@@ -17,6 +20,9 @@ export function AppRouter() {
                 ></Route>
 
                 <Route path="/auth/*" element={<AuthRouter />}></Route>
+                <Route path="/organizer/*" element={<OrganizerRouter />} />
+                <Route path="/admin/*" element={<AdminRouter />} />
+                <Route path="/client/*" element={<ClientRouter />} />
 
                 <Route path="*" element={<NotFoundPage />}></Route>
 

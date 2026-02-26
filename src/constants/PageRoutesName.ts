@@ -4,8 +4,17 @@ const PageRoutesName = {
         login: '/auth/login',
         register: '/auth/register',
         userConfig: '/auth/config',
-        areaCliente: '/auth/AreaCliente',
-        sejaOrganizador: '/auth/SejaOrganizador',
+    },
+
+    cliente: {
+        areaCliente: '/client/areaCliente',
+        sejaOrganizador: '/client/sejaOrganizador',
+    },
+
+    organizador: {},
+
+    administrador: {
+        getOrganizadores: '/organizer/getOrganizers',
     },
 };
 
