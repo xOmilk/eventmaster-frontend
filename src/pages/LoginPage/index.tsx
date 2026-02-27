@@ -33,7 +33,7 @@ export function LoginPage() {
 
     const navigate = useNavigate();
 
-    const onSubmit: SubmitHandler<LoginFields> = async (data) => {
+    const onSubmit: SubmitHandler<LoginFields> = async (_data) => {
         //TODO: verificação se o usuario realmente existe pela chamada API
         notify.success('Conta logada');
         //isso deve ser setado baseado no valor que API retornar quando efetuar chamada
