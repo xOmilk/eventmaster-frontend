@@ -4,7 +4,8 @@ const PageRoutesName = {
         login: '/auth/login',
         register: '/auth/register',
         userConfig: '/auth/config',
-        forgotpassword: '/auth/ForgotPassword',
+        forgotPassword: '/auth/forgotPassword',
+        newPassword: '/auth/newPassword',
     },
 
     cliente: {

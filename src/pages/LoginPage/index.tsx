@@ -85,6 +85,12 @@ export function LoginPage() {
                                 {errors.password?.message}
                             </p>
                         )}
+                        <button
+                        type="button"className={styles.forgotPasswordButton}
+                        onClick={() => navigate(PageRoutesName.auth.forgotPassword)}
+                        >
+                        Esqueci minha senha
+                        </button>
                     </div>
 
                     <Form.SendButton>Entrar</Form.SendButton>

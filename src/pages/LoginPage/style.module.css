@@ -17,3 +17,18 @@
     font-size: small;
     color: red;
 }
+
+.forgotPasswordButton {
+    background: none;
+    border: none;
+    color: #2563eb;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0;
+    width: fit-content;
+    align-self: flex-end;
+}
+
+.forgotPasswordButton:hover {
+    text-decoration: underline;
+}
