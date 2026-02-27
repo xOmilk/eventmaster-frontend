@@ -13,8 +13,8 @@ export function AuthRouter() {
         <Routes>
             <Route path="register" element={<RegisterPage />} />
             <Route path="login" element={<LoginPage />} />
-            <Route path="ForgotPassword" element={<ForgotPasswordPage />} />
-            <Route path="NewPassword" element={<NewPasswordPage />} />
+            <Route path="forgotPassword" element={<ForgotPasswordPage />} />
+            <Route path="newPassword" element={<NewPasswordPage />} />
             <Route path="config" element={<ConfigPage />} />
 
             <Route path="*" element={<NotFoundPage />}></Route>
