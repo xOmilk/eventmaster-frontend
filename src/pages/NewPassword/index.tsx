@@ -48,15 +48,14 @@ export function NewPasswordPage() {
     return (
         <DefaultLayout>
             <div className={styles.pageWrapper}>
-                <button
-                    className={styles.backButton}
-                    onClick={() => navigate(-1)}
-                    type="button"
-                >
-                    ← Voltar
-                </button>
-
                 <div className={styles.cardWrapper}>
+                    <button
+                        className={styles.backButton}
+                        onClick={() => navigate(-1)}
+                        type="button"
+                    >
+                        ← Voltar
+                    </button>
                     <Form>
                         <Form.Header>
                             <Form.Title children="Redefinição de Senha" />
