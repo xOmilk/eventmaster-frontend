@@ -40,15 +40,14 @@ export function ForgotPasswordPage() {
     return (
         <DefaultLayout>
             <div className={styles.pageWrapper}>
-                <button
-                    className={styles.backButton}
-                    onClick={() => navigate(-1)}
-                    type="button"
-                >
-                    ← Voltar
-                </button>
-
                 <div className={styles.cardWrapper}>
+                    <button
+                        className={styles.backButton}
+                        onClick={() => navigate(-1)}
+                        type="button"
+                    >
+                        ← Voltar
+                    </button>
                     <Form>
                         <Form.Header>
                             <Form.Title children="Recuperar Senha" />
@@ -71,7 +70,9 @@ export function ForgotPasswordPage() {
                                 )}
                             </div>
 
-                            <Form.SendButton>Enviar link de recuperação</Form.SendButton>
+                            <Form.SendButton>
+                                Enviar link de recuperação
+                            </Form.SendButton>
                         </Form.Content>
                     </Form>
                 </div>

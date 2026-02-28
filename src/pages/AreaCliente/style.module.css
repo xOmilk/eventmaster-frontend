@@ -1,19 +1,23 @@
-/* Layout Base */
 .container {
     max-width: 1000px;
     margin: 0 auto;
-    min-width: 900px;
-    padding: 2rem;
+    width: 100%;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
     font-family:
         system-ui,
         -apple-system,
         sans-serif;
-    color: #374151; /* gray-700 */
-    /* Aumentei a fonte base do container */
+    color: #374151;
     font-size: 1.125rem;
 }
 
-/* Botão Voltar */
+@media (min-width: 768px) {
+    .container {
+        padding: 2rem;
+    }
+}
+
 .backButton {
     display: flex;
     align-items: center;
@@ -21,27 +25,33 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.3rem; /* Aumentado */
+    font-size: 1.3rem;
     font-weight: 500;
-    color: #111827; /* gray-900 */
+    color: #111827;
     padding: 0;
     margin-bottom: 2rem;
 }
 
 .pageTitle {
-    font-size: 1.75rem; /* Aumentado de 1.5rem para 1.75rem */
-    font-weight: 600; /* Deixei um pouco mais negrito para destacar */
+    font-size: 1.75rem;
+    font-weight: 600;
     color: #111827;
     margin-bottom: 1.5rem;
 }
 
-/* Tabs */
 .tabsContainer {
     display: flex;
+    flex-direction: column;
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
     overflow: hidden;
     margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .tabsContainer {
+        flex-direction: row;
+    }
 }
 
 .tab {
@@ -49,38 +59,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem; /* Aumentei o espaço entre o ícone e o texto */
-    padding: 1.25rem 1rem; /* Aumentei o padding para o botão ficar maior */
+    gap: 0.75rem;
+    padding: 1.25rem 1rem;
     background: white;
     border: none;
     border-bottom: 2px solid transparent;
     cursor: pointer;
-    color: #6b7280; /* gray-500 */
+    color: #6b7280;
     font-weight: 500;
-    font-size: 1.3rem; /* Aumentado */
+    font-size: 1.3rem;
     transition: all 0.2s;
 }
 
 .activeTab {
-    color: #4f46e5; /* purple */
+    color: #4f46e5;
     border-bottom-color: #4f46e5;
 }
 
 .badgeCount {
-    background-color: #000000; /* gray-100 */
+    background-color: #000000;
     color: #ffffff;
     padding: 0.2rem 0.8rem;
     border-radius: 1rem;
-    font-size: 1.2rem; /* Aumentado */
+    font-size: 1.2rem;
 }
 
 .subtitle {
     color: #6b7280;
-    font-size: 1.2rem; /* Aumentado */
+    font-size: 1.2rem;
     margin-bottom: 2rem;
 }
 
-/* Card de Filtros */
 .filtersCard {
     border: 1px solid #e5e7eb;
     border-radius: 0.75rem;
@@ -95,13 +104,20 @@
     gap: 0.5rem;
     margin-bottom: 1.5rem;
     color: #111827;
-    font-size: 1.125rem; /* Aumentado */
+    font-size: 1.125rem;
 }
 
 .filtersRow {
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
     gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .filtersRow {
+        flex-direction: row;
+        align-items: flex-end;
+    }
 }
 
 .inputGroup {
@@ -109,26 +125,30 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    width: 100%;
 }
 
 .inputGroup label {
-    font-size: 1.125rem; /* Aumentado */
+    font-size: 1.125rem;
     color: #6b7280;
 }
 
 .selectInput {
-    padding: 0.875rem 1rem; /* Aumentei o padding interno do select */
+    padding: 0.875rem 1rem;
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
     background-color: #f9fafb;
     color: #374151;
-    font-size: 1.4rem; /* Aumentado */
+    font-size: 1.4rem;
     outline: none;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .exportButton {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     padding: 0.875rem 1.5rem;
     background: white;
@@ -136,61 +156,125 @@
     border-radius: 0.5rem;
     cursor: pointer;
     font-weight: 500;
-    font-size: 1.4rem; /* Aumentado */
+    font-size: 1.4rem;
     color: #111827;
-    height: 40px; /* Ajustado para acompanhar o novo tamanho do select */
+    height: 48px;
+    width: 100%;
 }
 
-/* Card do Histórico */
+@media (min-width: 768px) {
+    .exportButton {
+        width: auto;
+    }
+}
+
 .historyCard {
     border: 1px solid #e5e7eb;
     border-radius: 0.75rem;
-    padding: 2rem; /* Aumentei o padding interno do card */
+    padding: 1.5rem;
     background: white;
+}
+
+@media (min-width: 768px) {
+    .historyCard {
+        padding: 2rem;
+    }
 }
 
 .cardHeader {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.75rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+    .cardHeader {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.75rem;
+    }
 }
 
 .eventTitle {
-    font-size: 2rem; /* Aumentado de 1.125rem para 1.375rem */
+    font-size: 1.5rem;
     font-weight: 700;
     color: #111827;
     margin: 0;
 }
 
+@media (min-width: 768px) {
+    .eventTitle {
+        font-size: 2rem;
+    }
+}
+
 .statusBadgeGreen {
-    background-color: #22c55e; /* green-500 */
+    background-color: #22c55e;
     color: white;
     padding: 0.35rem 1rem;
     border-radius: 1rem;
-    font-size: 1.1rem; /* Aumentado */
+    font-size: 1rem;
     font-weight: 600;
+    display: inline-block;
+}
+
+@media (min-width: 768px) {
+    .statusBadgeGreen {
+        font-size: 1.1rem;
+    }
 }
 
 .eventInfo {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 0.5rem;
     color: #6b7280;
-    font-size: 1.125rem; /* Aumentado */
-    margin-bottom: 2.5rem;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .eventInfo {
+        flex-direction: row;
+        align-items: center;
+        font-size: 1.125rem;
+        margin-bottom: 2.5rem;
+    }
 }
 
 .location {
-    margin-left: 0.5rem;
+    margin-left: 0;
 }
 
-/* Grid de Detalhes */
+@media (min-width: 640px) {
+    .location {
+        margin-left: 0.5rem;
+    }
+}
+
 .detailsGrid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem 1.5rem; /* Aumentado o espaço entre as informações */
-    margin-bottom: 2.5rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 640px) {
+    .detailsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .detailsGrid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem 1.5rem;
+        margin-bottom: 2.5rem;
+    }
 }
 
 .detailItem {
@@ -200,55 +284,88 @@
 }
 
 .detailLabel {
-    font-size: 1.3rem; /* Aumentado de 0.75rem para 0.9rem */
+    font-size: 1.1rem;
     color: #6b7280;
 }
 
+@media (min-width: 768px) {
+    .detailLabel {
+        font-size: 1.3rem;
+    }
+}
+
 .detailValue {
-    font-size: 1.125rem; /* Aumentado de 0.875rem para 1.125rem */
+    font-size: 1rem;
     color: #111827;
     font-weight: 500;
 }
 
-.detailValueWithIcon {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.2rem; /* Aumentado */
-    color: #111827;
-    font-weight: 500;
+@media (min-width: 768px) {
+    .detailValue {
+        font-size: 1.125rem;
+    }
 }
 
+.detailValueWithIcon,
 .detailValueWithIconWarning {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 1.2rem; /* Aumentado */
-    color: #d97706; /* amber-600 */
+    font-size: 1.1rem;
     font-weight: 500;
 }
 
-/* Ações do Card */
+.detailValueWithIcon {
+    color: #111827;
+}
+
+.detailValueWithIconWarning {
+    color: #d97706;
+}
+
+@media (min-width: 768px) {
+    .detailValueWithIcon,
+    .detailValueWithIconWarning {
+        font-size: 1.2rem;
+    }
+}
+
 .cardActions {
     display: flex;
+    flex-direction: column;
     gap: 1rem;
     padding-top: 1.5rem;
-    border-top: 1px solid #f3f4f6; /* Adicionei uma linha sutil para separar os botões do conteúdo */
+    border-top: 1px solid #f3f4f6;
+}
+
+@media (min-width: 640px) {
+    .cardActions {
+        flex-direction: row;
+    }
 }
 
 .outlineButton {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.25rem; /* Botões mais gordinhos */
+    padding: 0.75rem 1.25rem;
     background: white;
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
     cursor: pointer;
     font-weight: 500;
-    font-size: 1.3rem; /* Aumentado */
+    font-size: 1.1rem;
     color: #111827;
     transition: background-color 0.2s;
+    width: 100%;
+}
+
+@media (min-width: 640px) {
+    .outlineButton {
+        width: auto;
+        font-size: 1.3rem;
+    }
 }
 
 .outlineButton:hover {
@@ -259,7 +376,7 @@
     background: #fff;
     border: 1px solid #e5e7eb;
     border-radius: 12px;
-    padding: 24px;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -267,8 +384,16 @@
 
 .ticketCardHeader {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+    .ticketCardHeader {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 
 .statusBadgeNext {
@@ -278,6 +403,7 @@
     font-weight: 600;
     padding: 4px 12px;
     border-radius: 20px;
+    display: inline-block;
 }
 
 .orderId {
@@ -287,6 +413,7 @@
 
 .eventTags {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     align-items: center;
 }
@@ -307,11 +434,23 @@
 
 .ticketInfoGrid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     gap: 16px;
     padding: 16px 0;
     border-top: 1px solid #f3f4f6;
     border-bottom: 1px solid #f3f4f6;
+}
+
+@media (min-width: 640px) {
+    .ticketInfoGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .ticketInfoGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .ticketInfoItem {
@@ -343,12 +482,22 @@
 
 .qrCodeSection {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 1rem;
     background: #f9fafb;
     border: 1px solid #d1d5db;
     border-radius: 10px;
-    padding: 20px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+@media (min-width: 640px) {
+    .qrCodeSection {
+        flex-direction: row;
+        align-items: flex-start;
+        text-align: left;
+    }
 }
 
 .qrCodeBox {
@@ -383,6 +532,13 @@
     font-weight: 500;
     cursor: pointer;
     padding: 8px 12px;
+    width: 100%;
+}
+
+@media (min-width: 640px) {
+    .refundButton {
+        width: auto;
+    }
 }
 
 .refundButton:hover {

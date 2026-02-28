@@ -1,14 +1,19 @@
-/* Form Card */
 .formCard {
     width: 100%;
-    /* margin: 0 auto; */
     background-color: var(--color-white);
     color: var(--color-gray-900);
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
     border-radius: 0.75rem;
     border: 1px solid var(--color-gray-200);
+    box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+    .formCard {
+        gap: 1.5rem;
+    }
 }
 
 .formContainer {
@@ -16,34 +21,56 @@
     flex-flow: column;
     align-items: start;
     justify-content: start;
-    gap: 2rem;
-    padding: 1.5rem 1.5rem 0;
+    gap: 1.5rem;
+    padding: 1.2rem 1.2rem 0;
+}
+
+@media (min-width: 640px) {
+    .formContainer {
+        gap: 2rem;
+        padding: 1.5rem 1.5rem 0;
+    }
 }
 
 .formHeader {
     display: flex;
     flex-flow: column;
     align-items: start;
-    gap: 1rem;
+    gap: 0.75rem;
+    width: 100%;
 }
 
-/* Form Title  */
+@media (min-width: 640px) {
+    .formHeader {
+        gap: 1rem;
+    }
+}
+
 .formTitle {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 600;
     margin: 0;
     color: var(--color-gray-900);
 }
 
-/* Form Subtitle  */
-.formSubtitle {
-    color: var(--color-gray-500);
-    font-size: 1.4rem;
-    margin: 0;
-    line-height: 1.7rem;
+@media (min-width: 640px) {
+    .formTitle {
+        font-size: 2rem;
+    }
 }
 
-/* Form Content  */
+.formSubtitle {
+    color: var(--color-gray-500);
+    font-size: 1.3rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+@media (min-width: 640px) {
+    .formSubtitle {
+        font-size: 1.4rem;
+    }
+}
 
 .formContent {
     width: 100%;
@@ -53,7 +80,6 @@
     padding-bottom: 1.5rem;
 }
 
-/* Form*/
 .form {
     width: 100%;
     display: flex;
@@ -65,25 +91,24 @@
     margin-top: 1rem;
 }
 
-/* Form Field */
 .formField {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-/* AREA PRA COLOCAR DO INPUT CASO SEJA PASSWORD (EFEITO DE ABRIR FECHAR OLHO)*/
-
 .containerInput {
     display: flex;
     align-items: center;
     position: relative;
     transition: all 0.3s;
+    width: 100%;
 }
 
 .input {
     flex: 1;
-    padding-right: 2.5rem; /* espaço para o botão do olho */
+    padding-right: 2.5rem;
+    width: 100%;
 }
 
 .eyeButton {
@@ -110,9 +135,6 @@
     opacity: 0.7;
 }
 
-/* FIM*/
-
-/* Form Label  */
 .formLabel {
     display: flex;
     align-items: center;
@@ -124,13 +146,12 @@
     color: var(--color-gray-900);
 }
 
-/* Input Wrapper*/
 .inputWrapper {
     position: relative;
     margin-top: 0.25rem;
+    width: 100%;
 }
 
-/* Input Icon */
 .inputIcon {
     position: absolute;
     left: 0.75rem;
@@ -146,20 +167,22 @@
 }
 
 .inputIcon svg {
-    width: 2rem;
-    height: 2rem;
+    width: 1.6rem;
+    height: 1.6rem;
 }
 
-/* Form Input */
-/* Classes: flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base bg-input-background
-   border-input transition-[color,box-shadow] outline-none placeholder:text-muted-foreground
-   selection:bg-primary selection:text-primary-foreground focus-visible:border-ring
-   focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:pointer-events-none
-   disabled:cursor-not-allowed disabled:opacity-50 md:text-sm */
+@media (min-width: 640px) {
+    .inputIcon svg {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
 .formInput {
-    padding: 1.5rem !important;
+    padding: 1.2rem 1.5rem !important;
     display: flex;
-    height: 2.25rem; /* h-9 */
+    height: auto;
+    min-height: 3rem;
     width: 100%;
     min-width: 0;
     border-radius: 0.375rem;
@@ -172,6 +195,7 @@
     outline: none;
     color: var(--color-gray-900);
     line-height: 1.5;
+    box-sizing: border-box;
 }
 
 .formInput::placeholder {
@@ -207,14 +231,15 @@
 
 .formInputWithIcon {
     text-indent: 1.5rem;
-    padding-left: 2.5rem;
+    padding-left: 2.5rem !important;
 }
 
-/* Form Button */
-/* Classes: inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm
-   font-medium transition-all disabled:pointer-events-none disabled:opacity-50 outline-none
-   focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]
-   bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2 w-full */
+@media (min-width: 640px) {
+    .formInputWithIcon {
+        padding-left: 3rem !important;
+    }
+}
+
 .formButton {
     display: inline-flex;
     align-items: center;
@@ -228,11 +253,13 @@
     outline: none;
     background-color: var(--color-black);
     color: var(--color-white);
-    height: 2.25rem;
-    padding: 1.5rem 2rem;
+    height: auto;
+    min-height: 3.5rem;
+    padding: 1.2rem 2rem;
     width: 100%;
     border: none;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .formButton:hover {
@@ -263,6 +290,13 @@
 }
 
 .formButton svg:not([class*='size-']) {
-    width: 2rem;
-    height: 2rem;
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+@media (min-width: 640px) {
+    .formButton svg:not([class*='size-']) {
+        width: 2rem;
+        height: 2rem;
+    }
 }
