@@ -3,8 +3,8 @@ import { DefaultLayout } from '../../layouts/DefaultLayout';
 import styles from './styles.module.css';
 import { getLocalStorageRole } from '../../utils/localStorageRole';
 import type { Event } from '../../types/Event';
-//import { useNavigate } from 'react-router';
-//import PageRoutesName from '../../constants/PageRoutesName';
+import { useNavigate } from 'react-router';
+import PageRoutesName from '../../constants/PageRoutesName';
 
 const MOCK_EVENTS: Event[] = [
     {
@@ -17,7 +17,7 @@ const MOCK_EVENTS: Event[] = [
         location: 'Estádio Nacional, São Paulo',
         price: 150,
         category: 'Música',
-        image: 'music festival concert',
+        imageUrl: 'music festival concert', // 👈 CORRIGIDO AQUI
         availableTickets: 450,
         totalTickets: 500,
     },
@@ -31,7 +31,7 @@ const MOCK_EVENTS: Event[] = [
         location: 'Teatro Municipal, Rio de Janeiro',
         price: 120,
         category: 'Teatro',
-        image: 'theater stage performance',
+        imageUrl: 'theater stage performance', // 👈 CORRIGIDO AQUI
         availableTickets: 80,
         totalTickets: 200,
     },
@@ -45,7 +45,7 @@ const MOCK_EVENTS: Event[] = [
         location: 'Arena Comedy Club, Curitiba',
         price: 80,
         category: 'Comédia',
-        image: 'comedy show audience',
+        imageUrl: 'comedy show audience', // 👈 CORRIGIDO AQUI
         availableTickets: 120,
         totalTickets: 150,
     },
@@ -59,7 +59,7 @@ const MOCK_EVENTS: Event[] = [
         location: 'Centro de Convenções, Brasília',
         price: 350,
         category: 'Tecnologia',
-        image: 'technology conference people',
+        imageUrl: 'technology conference people', // 👈 CORRIGIDO AQUI
         availableTickets: 200,
         totalTickets: 300,
     },
@@ -73,15 +73,14 @@ const MOCK_EVENTS: Event[] = [
         location: 'Parque Municipal, Belo Horizonte',
         price: 120,
         category: 'Música',
-        image: 'rock concert crowd',
+        imageUrl: 'rock concert crowd', // 👈 CORRIGIDO AQUI
         availableTickets: 800,
         totalTickets: 1000,
     },
 ];
 export function HomePage() {
     const userRole = getLocalStorageRole();
-    //const navigate = useNavigate();
-
+    const navigate = useNavigate();
     return (
         <DefaultLayout>
             <div className={styles.containerMain}>
@@ -166,7 +165,17 @@ export function HomePage() {
                                         </div>
                                     </div>
 
-                                    <button className={styles.detailsButton}>
+                                    <button
+                                        className={styles.detailsButton}
+                                        onClick={() =>
+                                            navigate(
+                                                PageRoutesName.cliente.eventDetail.replace(
+                                                    ':id',
+                                                    String(event.id)
+                                                )
+                                            )
+                                        }
+                                    >
                                         {userRole === 'ADMIN'
                                             ? 'Gerenciar'
                                             : 'Ver Detalhes'}
