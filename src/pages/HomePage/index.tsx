@@ -3,8 +3,8 @@ import { DefaultLayout } from '../../layouts/DefaultLayout';
 import styles from './styles.module.css';
 import { getLocalStorageRole } from '../../utils/localStorageRole';
 import type { Event } from '../../types/Event';
-//import { useNavigate } from 'react-router';
-//import PageRoutesName from '../../constants/PageRoutesName';
+import { useNavigate } from 'react-router';
+import PageRoutesName from '../../constants/PageRoutesName';
 
 const MOCK_EVENTS: Event[] = [
     {
@@ -80,8 +80,7 @@ const MOCK_EVENTS: Event[] = [
 ];
 export function HomePage() {
     const userRole = getLocalStorageRole();
-    //const navigate = useNavigate();
-
+    const navigate = useNavigate();
     return (
         <DefaultLayout>
             <div className={styles.containerMain}>
@@ -166,7 +165,17 @@ export function HomePage() {
                                         </div>
                                     </div>
 
-                                    <button className={styles.detailsButton}>
+                                    <button
+                                        className={styles.detailsButton}
+                                        onClick={() =>
+                                            navigate(
+                                                PageRoutesName.cliente.infoEvento.replace(
+                                                    ':id',
+                                                    event.id
+                                                )
+                                            )
+                                        }
+                                    >
                                         {userRole === 'ADMIN'
                                             ? 'Gerenciar'
                                             : 'Ver Detalhes'}

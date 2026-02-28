@@ -11,6 +11,8 @@ const PageRoutesName = {
     cliente: {
         areaCliente: '/client/areaCliente',
         sejaOrganizador: '/client/sejaOrganizador',
+        infoEvento: '/client/infoEvento/:id',
+        checkout: '/client/checkout/:id',
     },
 
     organizador: {},

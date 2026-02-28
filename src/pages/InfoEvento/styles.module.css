@@ -1,0 +1,475 @@
+/* Container Principal */
+.pageContainer {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    font-family:
+        system-ui,
+        -apple-system,
+        sans-serif;
+    color: #111827;
+}
+
+/* Botão Voltar */
+.backButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 2rem;
+    transition: color 0.2s;
+    padding: 0.5rem 0;
+}
+
+.backButton:hover {
+    color: #111827;
+}
+
+.backIcon {
+    width: 2rem;
+    height: 2rem;
+}
+
+/* Grid de Layout (Responsivo) */
+.mainGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+    .mainGrid {
+        /* Esquerda ocupa 2 partes, direita ocupa 1 */
+        grid-template-columns: 2fr 1fr;
+        gap: 3rem;
+    }
+}
+
+/* --- COLUNA ESQUERDA (Detalhes) --- */
+
+.leftColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.imageContainer {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #e5e7eb;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.eventImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.headerInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.categoryBadge {
+    background-color: #111827;
+    color: #ffffff;
+    padding: 0.4rem 1.2rem;
+    border-radius: 2rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.eventTitle {
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+    color: #111827;
+}
+
+.eventDescription {
+    font-size: 1.6rem;
+    color: #4b5563;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Cards de Informação */
+.infoCard {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    padding: 2rem;
+}
+
+.cardTitle {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0 0 2rem 0;
+    color: #111827;
+}
+
+.infoList {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.infoItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.infoIcon {
+    color: #4f46e5;
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-top: 0.2rem;
+}
+
+.infoTextWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+}
+
+.infoLabel {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.infoValue {
+    font-size: 1.4rem;
+    color: #4b5563;
+}
+
+/* Barra de Progresso */
+.progressBarBackground {
+    margin-top: 0.8rem;
+    width: 100%;
+    height: 0.8rem;
+    background-color: #e5e7eb;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.progressBarFill {
+    height: 100%;
+    background-color: #4f46e5;
+    border-radius: 1rem;
+}
+
+/* Sobre o Evento */
+.aboutContent {
+    font-size: 1.5rem;
+    color: #4b5563;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.aboutContent p {
+    margin: 0;
+}
+
+.aboutContent strong {
+    color: #111827;
+}
+
+/* --- COLUNA DIREITA (Card de Compra) --- */
+
+.rightColumn {
+    width: 100%;
+}
+
+.purchaseCard {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    padding: 2rem;
+
+    /* Faz o card acompanhar o scroll no Desktop */
+    position: sticky;
+    top: 10rem;
+}
+
+.sectionLabel {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1.5rem;
+}
+
+.sectionDivider {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Lista de Ingressos (Radio Customizado) */
+.ticketTypesList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.ticketTypeItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ticketTypeItem:hover:not(.ticketDisabled) {
+    border-color: #a5b4fc;
+}
+
+.ticketSelected {
+    border-color: #4f46e5;
+    background-color: #eef2ff;
+}
+
+.ticketDisabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Bolinha do Radio Customizado */
+.radioCircle {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 2px solid #d1d5db;
+    margin-top: 0.2rem;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.radioChecked {
+    border-color: #4f46e5;
+}
+
+.radioChecked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: #4f46e5;
+}
+
+.ticketTypeContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.ticketTypeHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ticketTypeName {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.ticketTypePrice {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.ticketTypeDescription {
+    font-size: 1.3rem;
+    color: #6b7280;
+}
+
+.ticketTypeAvailability {
+    font-size: 1.2rem;
+    color: #6b7280;
+}
+
+/* Destaque de Preço */
+.priceHighlight {
+    margin-bottom: 2rem;
+}
+
+.mainPrice {
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+/* Controle de Quantidade */
+.quantitySection {
+    margin-bottom: 2rem;
+}
+
+.quantityControls {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.iconButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.8rem;
+    height: 4.8rem;
+    background-color: transparent;
+    border: 1px solid #d1d5db;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    color: #111827;
+    transition: background-color 0.2s;
+}
+
+.iconButton:hover:not(:disabled) {
+    background-color: #f3f4f6;
+}
+
+.iconButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.quantityInput {
+    flex: 1;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #111827;
+    border: 1px solid #d1d5db;
+    border-radius: 0.8rem;
+    height: 4.8rem;
+    outline: none;
+}
+
+.quantityInput:focus {
+    border-color: #4f46e5;
+}
+
+.quantityHint {
+    text-align: center;
+    font-size: 1.3rem;
+    color: #6b7280;
+    margin-top: 1rem;
+}
+
+/* Opção Meia Entrada */
+.halfPriceSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.radioOption {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+    color: #111827;
+    cursor: pointer;
+}
+
+/* Resumo da Compra */
+.summarySection {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 2rem;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.summaryRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summaryLabel {
+    font-size: 1.4rem;
+    color: #6b7280;
+}
+
+.summaryValue {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #111827;
+}
+
+.summaryTotal {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.summaryLabelTotal {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.summaryValueTotal {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+/* Botão de Comprar */
+.buyButton {
+    width: 100%;
+    background-color: #4f46e5;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.8rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    height: 5.4rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.buyButton:hover:not(:disabled) {
+    background-color: #4338ca;
+}
+
+.buyButton:disabled {
+    background-color: #d1d5db;
+    cursor: not-allowed;
+}
+
+.securePurchaseHint {
+    text-align: center;
+    font-size: 1.3rem;
+    color: #6b7280;
+    margin-top: 1.5rem;
+}
