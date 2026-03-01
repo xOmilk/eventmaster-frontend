@@ -1,6 +1,17 @@
 const apiRoutesName = {
+    auth: {
+        login: '/login',
+        register: '/signup',
+        recoverPassword: '/recover-password',
+        resetPassword: '/reset-passowrd',
+    },
+
     events: {
-        getAllEvents: '',
+        getAllEvents: '/events',
+        getOneEvent: (idEvent: number) => `/events/${idEvent}`,
+        create: '/events',
+        update: (id: number) => `/events/${id}`,
+        delete: (id: number) => `/events/${id}`,
     },
 };
 
