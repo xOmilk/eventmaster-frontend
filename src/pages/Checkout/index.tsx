@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { ArrowLeft, CreditCard, Lock, ShieldCheck, Ticket } from 'lucide-react';
 import { DefaultLayout } from '../../layouts/DefaultLayout';
-import type { Event, TicketType } from '../InfoEvento';
+import type { Event, TicketType } from '../../types/Event';
 
 // 👇 Importação do CSS Module
 import styles from './styles.module.css';
