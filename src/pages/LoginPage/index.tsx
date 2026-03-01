@@ -27,18 +27,27 @@ export function LoginPage() {
         register,
         handleSubmit,
         formState: { errors, isSubmitSuccessful },
+        setError,
     } = useForm({
         resolver: zodResolver(loginSchema),
     });
 
     const navigate = useNavigate();
 
-    const onSubmit: SubmitHandler<LoginFields> = async (_data) => {
-        //TODO: verificação se o usuario realmente existe pela chamada API
-        notify.success('Conta logada');
+    const onSubmit: SubmitHandler<LoginFields> = async (/* data */) => {
+        try {
+            //const response = await loginUser({ email: data.email, password: data.password });
+            //TODO: Verificar o retorno API e setar localstorageTOKEN e localstorageROLE
+
+            notify.success('Conta logada');
+            setLocalStorageRole('USUARIO');
+            navigate(PageRoutesName.home);
+        } catch (err) {
+            console.log('error:', err);
+            setError('root', { message: 'Erro ao tentar logar' });
+            notify.error('Erro ao tentar fazer login.');
+        }
         //isso deve ser setado baseado no valor que API retornar quando efetuar chamada
-        setLocalStorageRole('USUARIO');
-        navigate(PageRoutesName.home);
     };
 
     return (
@@ -86,10 +95,13 @@ export function LoginPage() {
                             </p>
                         )}
                         <button
-                        type="button"className={styles.forgotPasswordButton}
-                        onClick={() => navigate(PageRoutesName.auth.forgotPassword)}
+                            type="button"
+                            className={styles.forgotPasswordButton}
+                            onClick={() =>
+                                navigate(PageRoutesName.auth.forgotPassword)
+                            }
                         >
-                        Esqueci minha senha
+                            Esqueci minha senha
                         </button>
                     </div>
 

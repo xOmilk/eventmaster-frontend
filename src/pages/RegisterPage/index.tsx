@@ -9,6 +9,7 @@ import { AuthLayout } from '../../layouts/AuthLayout';
 import { notify } from '../../adapters/toastHotAdapter';
 import { useNavigate } from 'react-router';
 import PageRoutesName from '../../constants/PageRoutesName';
+import { registerUser } from '../../services/auth/registerUser';
 
 const registerSchema = z
     .object({
@@ -69,6 +70,16 @@ export function RegisterPage() {
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
             //TODO: BLOCO PRA CHAMADA DA API;
+            const response = await registerUser({
+                cpf: data.cpf,
+                email: data.email,
+                name: data.name,
+                password: data.password,
+                passwordConfirmation: data.confirmPassword,
+            });
+
+            console.log(response);
+
             notify.success('Sua conta foi criada com sucesso, Faça login.');
             navigate(PageRoutesName.auth.login);
             console.log(data); //retirar
