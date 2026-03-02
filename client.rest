@@ -1,0 +1,16 @@
+@baseUrl = https://api.event.matheusfelipe.dev/api
+
+@tokenValue = {{authenticate.response.body.token}}
+@tokenType = {{authenticate.response.body.token_type}}
+
+@authToken = {{tokenType}} {{tokenValue}}
+
+
+# @name authenticate
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+    "email":"teste@teste.com",
+    "password":"12345678"
+}
