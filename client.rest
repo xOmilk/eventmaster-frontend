@@ -11,8 +11,47 @@ POST {{baseUrl}}/login
 Content-Type: application/json
 
 {
-    "email":"teste@teste.com",
+    "email":"asdasd@asd.asd",
     "password":"12345678"
+}
+
+### PEGAR AS INFORMAÇÕES DO USUARIO LOGADO
+
+# @name commonUser
+GET {{baseUrl}}/user
+Authorization: Bearer {{tokenValue}}
+
+### Receber Email para recuperar senha
+POST {{baseUrl}}/recover-password
+Content-Type: application/json
+
+{
+  "email":"teste@teste.com"
+}
+
+### Resetar senha, digitando uma nova
+POST {{baseUrl}}/reset-password
+Content-Type: application/json
+
+{
+  "email":"teste@teste.com",
+  "token":"asdasdasdasdasd",
+  "password":"12345678",
+  "password_confirmation":"12345678"
+}
+
+
+
+### Rota logar como admin
+
+# @name adminUser
+
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+    "email":"admin@example.com",
+    "password":"password"
 }
 
 
@@ -27,6 +66,23 @@ Content-Type: application/json
   "password": "12345678",
   "password_confirmation": "12345678"
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Rota pra recuperar os eventos
 GET {{baseUrl}}/events
 Authorization: {{authToken}}
