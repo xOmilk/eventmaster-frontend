@@ -5,6 +5,9 @@ import { getLocalStorageRole } from '../../utils/localStorageRole';
 import type { Event } from '../../types/Event';
 import { useNavigate } from 'react-router';
 import PageRoutesName from '../../constants/PageRoutesName';
+import { useQuery } from '@tanstack/react-query';
+import { getMe } from '../../services/auth/getMe';
+import { useEffect } from 'react';
 
 const MOCK_EVENTS: Event[] = [
     {
@@ -81,6 +84,16 @@ const MOCK_EVENTS: Event[] = [
 export function HomePage() {
     const userRole = getLocalStorageRole();
     const navigate = useNavigate();
+
+    const { data: userData } = useQuery({
+        queryKey: ['UserData'],
+        queryFn: getMe,
+    });
+
+    useEffect(() => {
+        console.log(userData);
+    }, [userData]);
+
     return (
         <DefaultLayout>
             <div className={styles.containerMain}>

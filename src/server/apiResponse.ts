@@ -4,5 +4,5 @@ export type apiResponse = {
 
 export type apiResponseError = {
     message: string;
-    errors: object;
+    errors?: Record<string, string[]>;
 };

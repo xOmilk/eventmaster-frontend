@@ -4,9 +4,9 @@ Sistema de gerenciamento de eventos - Interface Web
 
 ## 📋 Pré-requisitos
 
--   Node.js (versão 22 ou superior)
--   npm ou yarn
--   Git
+- Node.js (versão 22 ou superior)
+- npm ou yarn
+- Git
 
 ## 🚀 Configuração Inicial
 
@@ -55,11 +55,11 @@ git checkout -b tipo/nome-da-branch
 
 Tipos de branch:
 
--   `feat/` - Nova funcionalidade
--   `fix/` - Correção de bug
--   `chore/` - Tarefas de manutenção/configuração
--   `refactor/` - Refatoração de código
--   `docs/` - Documentação
+- `feat/` - Nova funcionalidade
+- `fix/` - Correção de bug
+- `chore/` - Tarefas de manutenção/configuração
+- `refactor/` - Refatoração de código
+- `docs/` - Documentação
 
 ## 📁 Estrutura do Projeto
 
@@ -103,16 +103,16 @@ api.get('/api/events'); // NÃO use URLs hardcoded
 
 ### 2. Rotas
 
--   Use o sistema de rotas configurado em `src/routes/`
--   Todas as rotas de páginas devem estar em `PageRoutesName.ts`
--   Todas as rotas de API devem estar em `apiRoutesName.ts`
+- Use o sistema de rotas configurado em `src/routes/`
+- Todas as rotas de páginas devem estar em `PageRoutesName.ts`
+- Todas as rotas de API devem estar em `apiRoutesName.ts`
 
 ### 3. Componentes
 
--   Um componente por arquivo
--   Use `index.tsx` como arquivo principal do componente
--   CSS Modules para estilos: `styles.module.css`
--   Estrutura de pasta:
+- Um componente por arquivo
+- Use `index.tsx` como arquivo principal do componente
+- CSS Modules para estilos: `styles.module.css`
+- Estrutura de pasta:
     ```
     ComponentName/
     ├── index.tsx
@@ -121,8 +121,8 @@ api.get('/api/events'); // NÃO use URLs hardcoded
 
 ### 4. Tipagem
 
--   **SEMPRE** tipifique suas variáveis, funções e props
--   Defina tipos em `src/types/` quando reutilizáveis
+- **SEMPRE** tipifique suas variáveis, funções e props
+- Defina tipos em `src/types/` quando reutilizáveis
 
 ```tsx
 type ButtonProps {
@@ -138,8 +138,8 @@ export function Button ({ label, onClick, disabled = false }: ButtonProps) => {
 
 ### 5. Importações
 
--   Use importações absolutas quando possível
--   Organize as importações:
+- Use importações absolutas quando possível
+- Organize as importações:
     1. Bibliotecas externas
     2. Componentes internos
     3. Constantes, tipos e utils
@@ -159,9 +159,9 @@ import styles from './styles.module.css';
 
 ### 6. CSS
 
--   Use CSS Modules para componentes
--   Variáveis CSS globais em `src/css/variables.css`
--   Nomes de classes em camelCase no CSS Module
+- Use CSS Modules para componentes
+- Variáveis CSS globais em `src/css/variables.css`
+- Nomes de classes em camelCase no CSS Module
 
 ```css
 /* styles.module.css */
@@ -187,18 +187,18 @@ npm run lint         # Executa o linter
 
 O projeto já está configurado com extensões recomendadas. Ao abrir no VS Code, aceite instalar as extensões sugeridas:
 
--   ESLint
--   Prettier
--   CSS Modules
--   CSS Variables
--   Trailing Spaces
+- ESLint
+- Prettier
+- CSS Modules
+- CSS Variables
+- Trailing Spaces
 
 ## ✨ Formatação Automática
 
 O projeto está configurado para formatar automaticamente ao salvar:
 
--   Prettier para formatação geral
--   ESLint para correções automáticas
+- Prettier para formatação geral
+- ESLint para correções automáticas
 
 **Configurações em `.vscode/settings.json`**
 
@@ -220,11 +220,11 @@ npm run dev
 
 ### Porta já em uso
 
-Altere a porta no `vite.config.ts` ou pare o processo que está usando a porta 5173.
+Altere a porta no `vite.config.ts` ou pare o processo que está usando a porta 3000.
 
 ## 📚 Recursos
 
--   [Documentação React](https://react.dev/)
--   [Documentação TypeScript](https://www.typescriptlang.org/)
--   [Documentação Vite](https://vitejs.dev/)
--   [Documentação React Router](https://reactrouter.com/)
+- [Documentação React](https://react.dev/)
+- [Documentação TypeScript](https://www.typescriptlang.org/)
+- [Documentação Vite](https://vitejs.dev/)
+- [Documentação React Router](https://reactrouter.com/)

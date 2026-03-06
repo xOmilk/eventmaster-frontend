@@ -3,13 +3,15 @@ import { Form } from '../../components/Form';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 
 import styles from './style.module.css';
 import { AuthLayout } from '../../layouts/AuthLayout';
 import { notify } from '../../adapters/toastHotAdapter';
-import { useNavigate } from 'react-router';
-import PageRoutesName from '../../constants/PageRoutesName';
 import { registerUser } from '../../services/auth/registerUser';
+import { handleApiErrors } from '../../utils/handleApiErrors';
+import type { AxiosError } from 'axios';
+import type { apiResponseError } from '../../server/apiResponse';
 
 const registerSchema = z
     .object({
@@ -42,7 +44,7 @@ const registerSchema = z
 
         password: z
             .string()
-            .min(6, 'A senha precisa ter no mínimo 6 dígitos')
+            .min(8, 'A senha precisa ter no mínimo 8 dígitos')
             .max(30, 'A senha precisa ter no máximo 30 dígitos'),
 
         confirmPassword: z
@@ -60,31 +62,49 @@ export function RegisterPage() {
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitSuccessful },
-    } = useForm({
+        setError,
+        formState: { errors },
+    } = useForm<FormFields>({
         resolver: zodResolver(registerSchema),
     });
 
-    const navigate = useNavigate();
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
-            //TODO: BLOCO PRA CHAMADA DA API;
             const response = await registerUser({
                 cpf: data.cpf,
                 email: data.email,
                 name: data.name,
                 password: data.password,
-                passwordConfirmation: data.confirmPassword,
+                password_confirmation: data.confirmPassword,
             });
 
             console.log(response);
 
+            setIsSuccess(true);
             notify.success('Sua conta foi criada com sucesso, Faça login.');
-            navigate(PageRoutesName.auth.login);
-            console.log(data); //retirar
-        } catch (error) {
-            console.log(error);
+        } catch (err) {
+            const error = err as AxiosError<apiResponseError>;
+            console.error('Erro ao criar conta:', error);
+
+            setIsSuccess(false);
+
+            // Mapear erros da API para os campos do formulário
+            const apiErrors = error?.response?.data?.errors;
+            const fieldMap: Record<string, keyof FormFields> = {
+                name: 'name',
+                email: 'email',
+                cpf: 'cpf',
+                password: 'password',
+                password_confirmation: 'confirmPassword',
+            };
+            handleApiErrors(apiErrors, setError, fieldMap);
+
+            const errorMessage =
+                error?.response?.data?.message ||
+                'Erro ao criar conta. Tente novamente.';
+            notify.error(errorMessage);
         }
     };
 
@@ -191,7 +211,7 @@ export function RegisterPage() {
                     {errors.root?.message && (
                         <p className={styles.error}>{errors.root?.message}</p>
                     )}
-                    {isSubmitSuccessful && (
+                    {isSuccess && (
                         <p
                             style={{
                                 color: 'var(--color-green-600)',

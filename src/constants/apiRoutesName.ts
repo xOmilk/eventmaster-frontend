@@ -1,5 +1,6 @@
 const apiRoutesName = {
     auth: {
+        getMe: '/user',
         login: '/login',
         register: '/signup',
         recoverPassword: '/recover-password',

@@ -9,14 +9,18 @@ import { AuthLayout } from '../../layouts/AuthLayout';
 import { notify } from '../../adapters/toastHotAdapter';
 import { useNavigate } from 'react-router';
 import PageRoutesName from '../../constants/PageRoutesName';
-import { setLocalStorageRole } from '../../utils/localStorageRole';
+import { loginUser } from '../../services/auth/loginUser';
+import type { AxiosError } from 'axios';
+import type { apiResponseError } from '../../server/apiResponse';
+import { handleApiErrors } from '../../utils/handleApiErrors';
+import { useState } from 'react';
 
 const loginSchema = z.object({
     email: z.email('Digite um email válido').min(1, 'Email é obrigatório'),
 
     password: z
         .string()
-        .min(6, 'A senha precisa ter no mínimo 6 dígitos')
+        .min(8, 'A senha precisa ter no mínimo 8 dígitos')
         .max(30, 'A senha precisa ter no máximo 30 dígitos'),
 });
 
@@ -26,28 +30,41 @@ export function LoginPage() {
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitSuccessful },
+        formState: { errors },
         setError,
-    } = useForm({
+    } = useForm<LoginFields>({
         resolver: zodResolver(loginSchema),
     });
 
     const navigate = useNavigate();
+    const [isSuccess, setIsSuccess] = useState(false);
 
-    const onSubmit: SubmitHandler<LoginFields> = async (/* data */) => {
+    const onSubmit: SubmitHandler<LoginFields> = async (data) => {
         try {
-            //const response = await loginUser({ email: data.email, password: data.password });
-            //TODO: Verificar o retorno API e setar localstorageTOKEN e localstorageROLE
+            await loginUser({
+                email: data.email,
+                password: data.password,
+            });
 
-            notify.success('Conta logada');
-            setLocalStorageRole('USUARIO');
+            setIsSuccess(true);
+            notify.success('Login realizado com sucesso.');
             navigate(PageRoutesName.home);
         } catch (err) {
-            console.log('error:', err);
-            setError('root', { message: 'Erro ao tentar logar' });
-            notify.error('Erro ao tentar fazer login.');
+            const error = err as AxiosError<apiResponseError>;
+            setIsSuccess(false);
+
+            // Mapear erros da API para os campos do formulário
+            const apiErrors = error.response?.data?.errors;
+            const fieldMap: Record<string, keyof LoginFields> = {
+                email: 'email',
+                password: 'password',
+            };
+            handleApiErrors(apiErrors, setError, fieldMap);
+
+            const errorMessage =
+                error.response?.data.message || 'Erro ao fazer login.';
+            notify.error(errorMessage);
         }
-        //isso deve ser setado baseado no valor que API retornar quando efetuar chamada
     };
 
     return (
@@ -87,7 +104,6 @@ export function LoginPage() {
                             type="password"
                             placeholder="Digite sua senha"
                             icon={<LockIcon />}
-                            minLength={6}
                         />
                         {errors.password?.message && (
                             <p className={styles.error}>
@@ -109,7 +125,7 @@ export function LoginPage() {
                     {errors.root?.message && (
                         <p className={styles.error}>{errors.root?.message}</p>
                     )}
-                    {isSubmitSuccessful && (
+                    {isSuccess && (
                         <p
                             style={{
                                 color: 'var(--color-green-600)',
