@@ -22,7 +22,7 @@ interface CheckoutProps {
     onBack?: () => void;
 }
 
-export function Checkout({
+export function CheckoutPage({
     cart: defaultCart = [
         {
             event: { title: 'Evento Exemplo', price: 0 },
