@@ -28,11 +28,12 @@ export function Header() {
 
     const isActive = (path: string) => location.pathname === path;
 
-    const isLoggedOut = getLocalStorageRole() === null;
-    const isUsuario = getLocalStorageRole() === 'USUARIO';
-    const isOrganizador = getLocalStorageRole() === 'ORGANIZADOR';
-    const isStaff = getLocalStorageRole() === 'STAFF';
-    const isAdmin = getLocalStorageRole() === 'ADMIN';
+    const userRole = getLocalStorageRole();
+    const isLoggedOut = userRole === null;
+    const isUsuario = userRole === 'USUARIO';
+    const isOrganizador = userRole === 'ORGANIZADOR';
+    const isStaff = userRole === 'STAFF';
+    const isAdmin = userRole === 'ADMIN';
 
     const handleNavigation = (path: string) => {
         navigate(path);
