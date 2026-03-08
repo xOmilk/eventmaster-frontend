@@ -5,7 +5,6 @@ import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import styles from './style.module.css';
-import { DefaultLayout } from '../../layouts/DefaultLayout';
 import { notify } from '../../adapters/toastHotAdapter';
 import { useNavigate } from 'react-router';
 import PageRoutesName from '../../constants/PageRoutesName';
@@ -38,45 +37,43 @@ export function ForgotPasswordPage() {
     };
 
     return (
-        <DefaultLayout>
-            <div className={styles.pageWrapper}>
-                <div className={styles.cardWrapper}>
-                    <button
-                        className={styles.backButton}
-                        onClick={() => navigate(-1)}
-                        type="button"
-                    >
-                        ← Voltar
-                    </button>
-                    <Form>
-                        <Form.Header>
-                            <Form.Title children="Recuperar Senha" />
-                            <Form.Subtitle children="Informe seu e-mail para receber o link de recuperação." />
-                        </Form.Header>
+        <div className={styles.pageWrapper}>
+            <div className={styles.cardWrapper}>
+                <button
+                    className={styles.backButton}
+                    onClick={() => navigate(-1)}
+                    type="button"
+                >
+                    ← Voltar
+                </button>
+                <Form>
+                    <Form.Header>
+                        <Form.Title children="Recuperar Senha" />
+                        <Form.Subtitle children="Informe seu e-mail para receber o link de recuperação." />
+                    </Form.Header>
 
-                        <Form.Content onSubmit={handleSubmit(onSubmit)}>
-                            <div className={styles.group}>
-                                <Form.Input
-                                    {...register('email')}
-                                    label="E-mail"
-                                    type="email"
-                                    placeholder="seu@email.com"
-                                    icon={<MailIcon />}
-                                />
-                                {errors.email?.message && (
-                                    <p className={styles.error}>
-                                        {errors.email.message}
-                                    </p>
-                                )}
-                            </div>
+                    <Form.Content onSubmit={handleSubmit(onSubmit)}>
+                        <div className={styles.group}>
+                            <Form.Input
+                                {...register('email')}
+                                label="E-mail"
+                                type="email"
+                                placeholder="seu@email.com"
+                                icon={<MailIcon />}
+                            />
+                            {errors.email?.message && (
+                                <p className={styles.error}>
+                                    {errors.email.message}
+                                </p>
+                            )}
+                        </div>
 
-                            <Form.SendButton>
-                                Enviar link de recuperação
-                            </Form.SendButton>
-                        </Form.Content>
-                    </Form>
-                </div>
+                        <Form.SendButton>
+                            Enviar link de recuperação
+                        </Form.SendButton>
+                    </Form.Content>
+                </Form>
             </div>
-        </DefaultLayout>
+        </div>
     );
 }

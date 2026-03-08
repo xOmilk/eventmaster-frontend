@@ -5,7 +5,6 @@ import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import styles from './style.module.css';
-import { DefaultLayout } from '../../layouts/DefaultLayout';
 import { notify } from '../../adapters/toastHotAdapter';
 import { useNavigate } from 'react-router';
 import PageRoutesName from '../../constants/PageRoutesName';
@@ -46,57 +45,55 @@ export function NewPasswordPage() {
     };
 
     return (
-        <DefaultLayout>
-            <div className={styles.pageWrapper}>
-                <div className={styles.cardWrapper}>
-                    <button
-                        className={styles.backButton}
-                        onClick={() => navigate(-1)}
-                        type="button"
-                    >
-                        ← Voltar
-                    </button>
-                    <Form>
-                        <Form.Header>
-                            <Form.Title children="Redefinição de Senha" />
-                        </Form.Header>
+        <div className={styles.pageWrapper}>
+            <div className={styles.cardWrapper}>
+                <button
+                    className={styles.backButton}
+                    onClick={() => navigate(-1)}
+                    type="button"
+                >
+                    ← Voltar
+                </button>
+                <Form>
+                    <Form.Header>
+                        <Form.Title children="Redefinição de Senha" />
+                    </Form.Header>
 
-                        <Form.Content onSubmit={handleSubmit(onSubmit)}>
-                            <div className={styles.group}>
-                                <Form.Input
-                                    {...register('password')}
-                                    label="Nova Senha"
-                                    type="password"
-                                    placeholder="••••••••"
-                                    icon={<LockIcon />}
-                                />
-                                {errors.password?.message && (
-                                    <p className={styles.error}>
-                                        {errors.password.message}
-                                    </p>
-                                )}
-                            </div>
+                    <Form.Content onSubmit={handleSubmit(onSubmit)}>
+                        <div className={styles.group}>
+                            <Form.Input
+                                {...register('password')}
+                                label="Nova Senha"
+                                type="password"
+                                placeholder="••••••••"
+                                icon={<LockIcon />}
+                            />
+                            {errors.password?.message && (
+                                <p className={styles.error}>
+                                    {errors.password.message}
+                                </p>
+                            )}
+                        </div>
 
-                            <div className={styles.group}>
-                                <Form.Input
-                                    {...register('confirmPassword')}
-                                    label="Confirmar a nova Senha"
-                                    type="password"
-                                    placeholder="••••••••"
-                                    icon={<LockIcon />}
-                                />
-                                {errors.confirmPassword?.message && (
-                                    <p className={styles.error}>
-                                        {errors.confirmPassword.message}
-                                    </p>
-                                )}
-                            </div>
+                        <div className={styles.group}>
+                            <Form.Input
+                                {...register('confirmPassword')}
+                                label="Confirmar a nova Senha"
+                                type="password"
+                                placeholder="••••••••"
+                                icon={<LockIcon />}
+                            />
+                            {errors.confirmPassword?.message && (
+                                <p className={styles.error}>
+                                    {errors.confirmPassword.message}
+                                </p>
+                            )}
+                        </div>
 
-                            <Form.SendButton>Confirmar</Form.SendButton>
-                        </Form.Content>
-                    </Form>
-                </div>
+                        <Form.SendButton>Confirmar</Form.SendButton>
+                    </Form.Content>
+                </Form>
             </div>
-        </DefaultLayout>
+        </div>
     );
 }
