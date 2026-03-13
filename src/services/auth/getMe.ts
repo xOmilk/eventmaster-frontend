@@ -1,7 +1,7 @@
 import type { AxiosError } from 'axios';
 import { getLocalStorageToken } from '../../utils/localStorageToken';
 import api from '../../server/api';
-import apiRoutesName from '../../constants/apiRoutesName';
+import ApiRoutesName from '../../constants/apiRoutesName';
 
 import { z } from 'zod';
 import { setRoleUser } from '../../utils/setRoleUser';
@@ -18,7 +18,7 @@ export const userInfoSchema = z.object({
 export type UserAPIInfo = z.infer<typeof userInfoSchema>;
 export async function getMe() {
     try {
-        const response = await api.get(apiRoutesName.auth.getMe, {
+        const response = await api.get(ApiRoutesName.auth.getMe, {
             headers: {
                 Authorization: getLocalStorageToken(),
             },
