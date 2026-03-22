@@ -73,9 +73,9 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
 
         <Tabs value={abaAtual} onValueChange={setAbaAtual}>
           <TabsList className={styles.tabsList}>
-            <TabsTrigger value="pendentes">Solicitações ({pendentes.length})</TabsTrigger>
-            <TabsTrigger value="ativos">Organizadores Ativos ({organizadores.filter(o => o.status === 'ativo').length})</TabsTrigger>
-            <TabsTrigger value="historico">Histórico</TabsTrigger>
+            <TabsTrigger value="pendentes" className={styles.tabTriggerScaled}>Solicitações ({pendentes.length})</TabsTrigger>
+            <TabsTrigger value="ativos" className={styles.tabTriggerScaled}>Organizadores Ativos ({organizadores.filter(o => o.status === 'ativo').length})</TabsTrigger>
+            <TabsTrigger value="historico" className={styles.tabTriggerScaled}>Histórico</TabsTrigger>
           </TabsList>
 
           <TabsContent value="pendentes">
@@ -102,13 +102,13 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
                       <div className={styles.infoItem}><FileText className={styles.iconSize4} /> CNPJ: {s.cnpj}</div>
                     </div>
                     <div className={styles.actionButtons}>
-                      <Button variant="outline" size="sm" className={styles.flex1} onClick={() => setSolicitacaoSelecionada(s)}>
+                      <Button variant="outline" className={styles.flex1} onClick={() => setSolicitacaoSelecionada(s)}>
                         <Eye className={styles.iconSmall} /> Ver Detalhes
                       </Button>
-                      <Button variant="default" size="sm" className={`${styles.flex1} ${styles.btnApprove}`} onClick={() => aoAprovar(s.id)}>
+                      <Button variant="default" className={`${styles.flex1} ${styles.btnApprove}`} onClick={() => aoAprovar(s.id)}>
                         <CheckCircle className={styles.iconSmall} /> Aprovar
                       </Button>
-                      <Button variant="destructive" size="sm" onClick={() => aoRejeitar(s.id)}>
+                      <Button variant="destructive" className={styles.flex1} style={{flex: '0.2', padding: '1.5rem'}} onClick={() => aoRejeitar(s.id)}>
                         <XCircle className={styles.iconSize4} />
                       </Button>
                     </div>
@@ -176,9 +176,9 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
                             <td className={`${styles.tdStyle} ${styles.tdRight}`}>
                               <Button 
                                 variant={isAtivo ? 'outline' : 'default'} 
-                                size="sm" 
                                 onClick={() => toggleStatus(org.id, isAtivo)} 
                                 className={`${styles.btnAction} ${isAtivo ? styles.btnSuspend : styles.btnReactivate}`}
+                                style={{ padding: '0.75rem 1.5rem', fontSize: '1.125rem' }}
                               >
                                 {isAtivo ? 'Suspender Conta' : 'Reativar Conta'}
                               </Button>

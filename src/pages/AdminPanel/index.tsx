@@ -47,6 +47,10 @@ export function AdminPanelPage() {
                                     navigate(PageRoutesName.administrador.getOrganizadores)
                                 } else if (tab.key === 'aprovacoes'){
                                     navigate(PageRoutesName.administrador.approveEvents)
+                                } else if (tab.key === 'relatorios'){
+                                    navigate(PageRoutesName.administrador.globalReports)
+                                } else if (tab.key === 'comissoes'){
+                                    navigate(PageRoutesName.administrador.manageCommissions)
                                 } else{
                                     setActiveTab(tab.key);
                                 }
@@ -225,7 +229,10 @@ export function AdminPanelPage() {
                                     <Settings size={28} color="#374151" />
                                     <span className={styles.quickActionLabel}>Configurar Comissões</span>
                                 </button>
-                                <button className={styles.quickActionCard}>
+                                <button 
+                                    className={styles.quickActionCard}
+                                    onClick={() => navigate(PageRoutesName.administrador.globalReports)}
+                                >
                                     <BookMarked size={28} color="#374151" />
                                     <span className={styles.quickActionLabel}>Relatórios Globais</span>
                                 </button>
@@ -338,11 +345,6 @@ export function AdminPanelPage() {
                 {activeTab === 'comissoes' && (
                     <div className={styles.placeholderSection}>
                         <p>Conteúdo de Comissões virá aqui.</p>
-                    </div>
-                )}
-                {activeTab === 'relatorios' && (
-                    <div className={styles.placeholderSection}>
-                        <p>Conteúdo de Relatórios virá aqui.</p>
                     </div>
                 )}
             </div>
