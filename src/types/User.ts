@@ -1,8 +1,10 @@
 export type RoleTypes = 'ADMIN' | 'STAFF' | 'USUARIO' | 'ORGANIZADOR';
 
 export type User = {
+    id: number;
+    id_role: number;
+    role: string;
     name: string;
-    email: string;
     cpf: string;
-    role: RoleTypes;
+    email: string;
 };

@@ -16,11 +16,16 @@ const ApiRoutesName = {
     },
 
     admin: {
+        createNewOrganizerUser:"organizers",
+        getAllOrganizers: '/organizers',
+        getOneOrganizer: (organizerId: number) => `/organizers/${organizerId}`,
         promoteUserToAdmin: (userId: number) => `/admins/${userId}`,
         promoteSomeoneToUser: (userId: number) => `/users/${userId}/role`,
         promoteSomeoneToOrganizer: (userId: number) => `/users/${userId}/role`,
         promoteSomeoneToStaff: (userId: number) => `/users/${userId}/role`,
     },
+
+    organizer: {},
 };
 
 export default ApiRoutesName;
