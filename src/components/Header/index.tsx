@@ -168,11 +168,11 @@ export function Header() {
 
                             {isAdmin && (
                                 <button
-                                    className={`${styles.itemNavbar}`}
+                                    className={`${styles.itemNavbar} ${isActive(PageRoutesName.administrador.adminDashboard) ? styles.active : ''}`}
                                     onClick={() => {
-                                        navigate(
+                                        handleNavigation(
                                             PageRoutesName.administrador
-                                                .adminPage
+                                                .adminDashboard
                                         );
                                     }}
                                 >

@@ -65,7 +65,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
       <div className={styles.container}>
         <div className={styles.headerSection}>
           <Button variant="ghost" onClick={onBack} className={styles.backButton}>
-            <ArrowLeft className={styles.backIcon} /> Voltar
+            <ArrowLeft className={styles.backIcon} /> Voltar ao Dashboard
           </Button>
           <h1 className={styles.pageTitle}>Gerenciar Organizadores</h1>
           <p className={styles.pageSubtitle}>Aprovar solicitações e gerenciar organizadores ativos</p>
