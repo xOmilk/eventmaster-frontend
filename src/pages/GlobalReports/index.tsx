@@ -9,20 +9,30 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import {
-    LineChart,
-    Line,
-    BarChart,
-    Bar,
-    PieChart,
-    Pie,
-    Cell,
-    XAxis,
-    YAxis,
-    CartesianGrid,
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    BarElement,
+    ArcElement,
+    Title,
     Tooltip,
-    Legend,
-    ResponsiveContainer,
-} from 'recharts';
+    Legend
+} from 'chart.js';
+import { Line, Bar, Pie } from 'react-chartjs-2';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    BarElement,
+    ArcElement,
+    Title,
+    Tooltip,
+    Legend
+);
 import styles from './styles.module.css';
 
 const REVENUE_DATA = [
@@ -262,36 +272,47 @@ export function GlobalReports({ onBack }: { onBack: () => void }) {
                             </p>
                         </div>
                         <div className={styles.cardContent}>
-                            <ResponsiveContainer width="100%" height={450}>
-                                <LineChart data={REVENUE_DATA}>
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="month" />
-                                    <YAxis />
-                                    <Tooltip
-                                        /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                        formatter={(value: any) =>
-                                            `R$ ${Number(
-                                                value || 0
-                                            ).toLocaleString('pt-BR')}`
+                            <div style={{ width: '100%', height: 450 }}>
+                                <Line 
+                                    data={{
+                                        labels: REVENUE_DATA.map(d => d.month),
+                                        datasets: [
+                                            {
+                                                label: 'Receita Total',
+                                                data: REVENUE_DATA.map(d => d.revenue),
+                                                borderColor: '#3b82f6',
+                                                backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                                                tension: 0.4,
+                                                borderWidth: 3
+                                            },
+                                            {
+                                                label: 'Comissões',
+                                                data: REVENUE_DATA.map(d => d.commission),
+                                                borderColor: '#10b981',
+                                                backgroundColor: 'rgba(16, 185, 129, 0.5)',
+                                                tension: 0.4,
+                                                borderWidth: 3
+                                            }
+                                        ]
+                                    }}
+                                    options={{
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                        plugins: {
+                                            tooltip: {
+                                                callbacks: {
+                                                    label: function(context) {
+                                                        let label = context.dataset.label || '';
+                                                        if (label) label += ': ';
+                                                        label += 'R$ ' + Number(context.parsed.y).toLocaleString('pt-BR');
+                                                        return label;
+                                                    }
+                                                }
+                                            }
                                         }
-                                    />
-                                    <Legend />
-                                    <Line
-                                        type="monotone"
-                                        dataKey="revenue"
-                                        stroke="#3b82f6"
-                                        name="Receita Total"
-                                        strokeWidth={3}
-                                    />
-                                    <Line
-                                        type="monotone"
-                                        dataKey="commission"
-                                        stroke="#10b981"
-                                        name="Comissões"
-                                        strokeWidth={3}
-                                    />
-                                </LineChart>
-                            </ResponsiveContainer>
+                                    }}
+                                />
+                            </div>
                         </div>
                     </div>
 
@@ -303,41 +324,34 @@ export function GlobalReports({ onBack }: { onBack: () => void }) {
                                 </h3>
                             </div>
                             <div className={styles.cardContent}>
-                                <ResponsiveContainer width="100%" height={350}>
-                                    <PieChart>
-                                        <Pie
-                                            data={CATEGORY_DATA}
-                                            cx="50%"
-                                            cy="50%"
-                                            labelLine={false}
-                                            label={({ name, percent }: any) =>
-                                                `${name || ''} ${(
-                                                    (percent || 0) * 100
-                                                ).toFixed(0)}%`
+                                <div style={{ width: '100%', height: 350 }}>
+                                    <Pie 
+                                        data={{
+                                            labels: CATEGORY_DATA.map(d => d.name),
+                                            datasets: [{
+                                                data: CATEGORY_DATA.map(d => d.value),
+                                                backgroundColor: CATEGORY_DATA.map(d => d.color),
+                                                borderWidth: 1
+                                            }]
+                                        }}
+                                        options={{
+                                            responsive: true,
+                                            maintainAspectRatio: false,
+                                            plugins: {
+                                                tooltip: {
+                                                    callbacks: {
+                                                        label: function(context) {
+                                                            let label = context.label || '';
+                                                            if (label) label += ': ';
+                                                            label += 'R$ ' + Number(context.raw).toLocaleString('pt-BR');
+                                                            return label;
+                                                        }
+                                                    }
+                                                }
                                             }
-                                            outerRadius={120}
-                                            fill="#8884d8"
-                                            dataKey="value"
-                                        >
-                                            {CATEGORY_DATA.map(
-                                                (entry, index) => (
-                                                    <Cell
-                                                        key={`cell-${index}`}
-                                                        fill={entry.color}
-                                                    />
-                                                )
-                                            )}
-                                        </Pie>
-                                        <Tooltip
-                                            /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                            formatter={(value: any) =>
-                                                `R$ ${Number(
-                                                    value || 0
-                                                ).toLocaleString('pt-BR')}`
-                                            }
-                                        />
-                                    </PieChart>
-                                </ResponsiveContainer>
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
 
@@ -348,19 +362,31 @@ export function GlobalReports({ onBack }: { onBack: () => void }) {
                                 </h3>
                             </div>
                             <div className={styles.cardContent}>
-                                <ResponsiveContainer width="100%" height={350}>
-                                    <BarChart data={REVENUE_DATA}>
-                                        <CartesianGrid strokeDasharray="3 3" />
-                                        <XAxis dataKey="month" />
-                                        <YAxis />
-                                        <Tooltip />
-                                        <Bar
-                                            dataKey="tickets"
-                                            fill="#3b82f6"
-                                            name="Ingressos"
-                                        />
-                                    </BarChart>
-                                </ResponsiveContainer>
+                                <div style={{ width: '100%', height: 350 }}>
+                                    <Bar 
+                                        data={{
+                                            labels: REVENUE_DATA.map(d => d.month),
+                                            datasets: [{
+                                                label: 'Ingressos',
+                                                data: REVENUE_DATA.map(d => d.tickets),
+                                                backgroundColor: '#3b82f6'
+                                            }]
+                                        }}
+                                        options={{
+                                            responsive: true,
+                                            maintainAspectRatio: false,
+                                            plugins: {
+                                                tooltip: {
+                                                    callbacks: {
+                                                        label: function(context) {
+                                                            return context.dataset.label + ': ' + Number(context.raw).toLocaleString('pt-BR');
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -380,32 +406,41 @@ export function GlobalReports({ onBack }: { onBack: () => void }) {
                                 </p>
                             </div>
                             <div className={styles.cardContent}>
-                                <ResponsiveContainer width="100%" height={450}>
-                                    <BarChart data={REVENUE_DATA}>
-                                        <CartesianGrid strokeDasharray="3 3" />
-                                        <XAxis dataKey="month" />
-                                        <YAxis />
-                                        <Tooltip
-                                            /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                            formatter={(value: any) =>
-                                                `R$ ${Number(
-                                                    value || 0
-                                                ).toLocaleString('pt-BR')}`
+                                <div style={{ width: '100%', height: 450 }}>
+                                    <Bar 
+                                        data={{
+                                            labels: REVENUE_DATA.map(d => d.month),
+                                            datasets: [
+                                                {
+                                                    label: 'Receita Total',
+                                                    data: REVENUE_DATA.map(d => d.revenue),
+                                                    backgroundColor: '#3b82f6'
+                                                },
+                                                {
+                                                    label: 'Comissões',
+                                                    data: REVENUE_DATA.map(d => d.commission),
+                                                    backgroundColor: '#10b981'
+                                                }
+                                            ]
+                                        }}
+                                        options={{
+                                            responsive: true,
+                                            maintainAspectRatio: false,
+                                            plugins: {
+                                                tooltip: {
+                                                    callbacks: {
+                                                        label: function(context) {
+                                                            let label = context.dataset.label || '';
+                                                            if (label) label += ': ';
+                                                            label += 'R$ ' + Number(context.raw).toLocaleString('pt-BR');
+                                                            return label;
+                                                        }
+                                                    }
+                                                }
                                             }
-                                        />
-                                        <Legend />
-                                        <Bar
-                                            dataKey="revenue"
-                                            fill="#3b82f6"
-                                            name="Receita Total"
-                                        />
-                                        <Bar
-                                            dataKey="commission"
-                                            fill="#10b981"
-                                            name="Comissões"
-                                        />
-                                    </BarChart>
-                                </ResponsiveContainer>
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
 
@@ -662,37 +697,38 @@ export function GlobalReports({ onBack }: { onBack: () => void }) {
                             </h3>
                         </div>
                         <div className={styles.cardContent}>
-                            <ResponsiveContainer width="100%" height={400}>
-                                <BarChart data={ORGANIZER_PERFORMANCE}>
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis
-                                        dataKey="name"
-                                        angle={-45}
-                                        textAnchor="end"
-                                        height={100}
-                                    />
-                                    <YAxis />
-                                    <Tooltip
-                                        /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                        formatter={(value: any) =>
-                                            Number(value || 0).toLocaleString(
-                                                'pt-BR'
-                                            )
+                            <div style={{ width: '100%', height: 400 }}>
+                                <Bar 
+                                    data={{
+                                        labels: ORGANIZER_PERFORMANCE.map(d => d.name),
+                                        datasets: [
+                                            {
+                                                label: 'Eventos',
+                                                data: ORGANIZER_PERFORMANCE.map(d => d.events),
+                                                backgroundColor: '#3b82f6'
+                                            },
+                                            {
+                                                label: 'Ingressos (÷100)',
+                                                data: ORGANIZER_PERFORMANCE.map(d => d.tickets),
+                                                backgroundColor: '#10b981'
+                                            }
+                                        ]
+                                    }}
+                                    options={{
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                        plugins: {
+                                            tooltip: {
+                                                callbacks: {
+                                                    label: function(context) {
+                                                        return context.dataset.label + ': ' + Number(context.raw).toLocaleString('pt-BR');
+                                                    }
+                                                }
+                                            }
                                         }
-                                    />
-                                    <Legend />
-                                    <Bar
-                                        dataKey="events"
-                                        fill="#3b82f6"
-                                        name="Eventos"
-                                    />
-                                    <Bar
-                                        dataKey="tickets"
-                                        fill="#10b981"
-                                        name="Ingressos (÷100)"
-                                    />
-                                </BarChart>
-                            </ResponsiveContainer>
+                                    }}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

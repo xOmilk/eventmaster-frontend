@@ -1,4 +1,15 @@
-import { CalendarIcon, MapPinIcon, UsersIcon } from 'lucide-react';
+import { 
+    Calendar, 
+    MapPin, 
+    Users, 
+    Search, 
+    Filter, 
+    ChevronDown,
+    LayoutGrid,
+    Ticket,
+    DollarSign,
+    TrendingUp
+} from 'lucide-react';
 import styles from './styles.module.css';
 import { getLocalStorageRole } from '../../utils/localStorageRole';
 import { useNavigate } from 'react-router';
@@ -21,6 +32,79 @@ export function HomePage() {
 
     return (
         <div className={styles.containerMain}>
+            <header className={styles.header}>
+                <div className={styles.titleSection}>
+                    <h1 className={styles.pageTitle}>
+                        {userRole === 'ADMIN' ? 'Gerenciar Eventos' : 'Descubra Eventos Incríveis'}
+                    </h1>
+                    <p className={styles.pageSubtitle}>
+                        {userRole === 'ADMIN' 
+                            ? 'Visualize e gerencie todos os eventos da plataforma' 
+                            : 'Encontre os melhores shows, teatro, esportes e muito mais'}
+                    </p>
+                </div>
+
+                <div className={styles.filterSection}>
+                    <div className={styles.searchWrapper}>
+                        <Search className={styles.searchIcon} size={20} />
+                        <input 
+                            type="text" 
+                            placeholder="Buscar eventos..." 
+                            className={styles.searchInput}
+                        />
+                    </div>
+                    <div className={styles.categoryFilter}>
+                        <Filter className={styles.filterIcon} size={18} />
+                        <span>Todas Categorias</span>
+                        <ChevronDown size={16} />
+                    </div>
+                </div>
+
+                {userRole === 'ADMIN' && (
+                    <div className={styles.statsGrid}>
+                        <div className={styles.statsCard}>
+                            <div className={styles.statsInfo}>
+                                <span className={styles.statsLabel}>Total de Eventos</span>
+                                <span className={styles.statsValue}>6</span>
+                            </div>
+                            <div className={styles.statsIconWrapper}>
+                                <LayoutGrid size={24} />
+                            </div>
+                        </div>
+
+                        <div className={styles.statsCard}>
+                            <div className={styles.statsInfo}>
+                                <span className={styles.statsLabel}>Ingressos Vendidos</span>
+                                <span className={styles.statsValue}>530</span>
+                            </div>
+                            <div className={styles.statsIconWrapper}>
+                                <Ticket size={24} />
+                            </div>
+                        </div>
+
+                        <div className={styles.statsCard}>
+                            <div className={styles.statsInfo}>
+                                <span className={styles.statsLabel}>Receita Total</span>
+                                <span className={styles.statsValue}>R$ 88.700</span>
+                            </div>
+                            <div className={styles.statsIconWrapper}>
+                                <DollarSign size={24} />
+                            </div>
+                        </div>
+
+                        <div className={styles.statsCard}>
+                            <div className={styles.statsInfo}>
+                                <span className={styles.statsLabel}>Taxa de Ocupação</span>
+                                <span className={styles.statsValue}>23%</span>
+                            </div>
+                            <div className={styles.statsIconWrapper}>
+                                <TrendingUp size={24} />
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </header>
+
             <div className={styles.eventsGrid}>
                 {MOCK_EVENTS.map((event) => (
                     <div
@@ -50,7 +134,7 @@ export function HomePage() {
 
                             <div className={styles.infoList}>
                                 <div className={styles.infoItem}>
-                                    <CalendarIcon className={styles.infoIcon} />
+                                    <Calendar className={styles.infoIcon} />
                                     <span>
                                         {new Date(
                                             event.date
@@ -60,7 +144,7 @@ export function HomePage() {
                                 </div>
 
                                 <div className={styles.infoItem}>
-                                    <MapPinIcon className={styles.infoIcon} />
+                                    <MapPin className={styles.infoIcon} />
                                     <span className={styles.infoLocation}>
                                         {event.location}
                                     </span>
@@ -68,7 +152,7 @@ export function HomePage() {
 
                                 {userRole === 'ADMIN' && (
                                     <div className={styles.infoItem}>
-                                        <UsersIcon
+                                        <Users
                                             className={styles.infoIcon}
                                         />
                                         <span>
