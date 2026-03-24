@@ -29,6 +29,8 @@ const PageRoutesName = {
         getOrganizadores: '/admin/get-organizers',
         adminPanel: '/admin/panel',
         approveEvents: '/admin/approve-events',
+        manageCommissions: '/admin/manage-commissions',
+        globalReports: '/admin/global-reports',
         adminPage: '/admin',
     },
 };

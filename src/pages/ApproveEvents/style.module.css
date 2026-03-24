@@ -1,73 +1,97 @@
 .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 2.5rem 3rem;
-    font-family: system-ui, -apple-system, sans-serif;
+    max-width: 100%;
+    margin: 0;
+    padding: 3rem 2rem;
+    font-family:
+        system-ui,
+        -apple-system,
+        sans-serif;
     color: #374151;
+    font-size: 1.25rem;
+}
+
+@media (min-width: 640px) {
+    .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+@media (min-width: 1024px) {
+    .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
 }
 
 /* Voltar */
 .backButton {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.25rem;
+    font-weight: 600;
     color: #374151;
     padding: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
-.backButton:hover { color: #111827; }
+.backButton:hover {
+    color: #111827;
+}
 
 /* Título */
 .pageTitle {
-    font-size: 1.75rem;
-    font-weight: 700;
+    font-size: 2.75rem;
+    font-weight: 800;
     color: #111827;
-    margin: 0 0 0.35rem;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.025em;
 }
 
 .pageSubtitle {
-    font-size: 1rem;
+    font-size: 1.375rem;
     color: #6b7280;
-    margin: 0 0 2rem;
+    margin: 0 0 3rem;
 }
 
 /* Métricas */
 .metricsGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-    margin-bottom: 2rem;
+    gap: 2rem;
+    margin-bottom: 3rem;
 }
 
 .metricCard {
     background: white;
     border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    padding: 2rem;
+    border-radius: 20px;
+    padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .metricValue {
-    font-size: 3rem;
-    font-weight: 700;
+    font-size: 4rem;
+    font-weight: 800;
     color: #111827;
     line-height: 1;
 }
 
-.metricGreen { color: #16a34a; }
-.metricRed { color: #dc2626; }
+.metricGreen {
+    color: #16a34a;
+}
+.metricRed {
+    color: #dc2626;
+}
 
 .metricLabel {
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: #6b7280;
 }
 
@@ -75,21 +99,21 @@
 .listSection {
     background: white;
     border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    padding: 2rem;
+    border-radius: 20px;
+    padding: 3rem;
 }
 
 .listTitle {
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: 1.75rem;
+    font-weight: 800;
     color: #111827;
-    margin: 0 0 0.35rem;
+    margin: 0 0 0.5rem;
 }
 
 .listSubtitle {
-    font-size: 0.95rem;
+    font-size: 1.25rem;
     color: #6b7280;
-    margin: 0 0 1.75rem;
+    margin: 0 0 2.5rem;
 }
 
 /* Lista de eventos */
@@ -101,11 +125,11 @@
 
 .eventoCard {
     border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 1.5rem;
+    border-radius: 16px;
+    padding: 2.5rem;
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 1.5rem;
 }
 
 /* Header do card */
@@ -116,15 +140,15 @@
 }
 
 .eventoNome {
-    font-size: 1.15rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 800;
     color: #111827;
 }
 
 .categoriaBadge {
     background: #111827;
     color: white;
-    font-size: 0.78rem;
+    font-size: 0.875rem;
     font-weight: 600;
     padding: 3px 12px;
     border-radius: 9999px;
@@ -132,10 +156,10 @@
 
 /* Descrição */
 .eventoDesc {
-    font-size: 0.95rem;
+    font-size: 1.25rem;
     color: #6b7280;
     margin: 0;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 /* Data e local */
@@ -149,7 +173,7 @@
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #6b7280;
 }
 
@@ -170,16 +194,19 @@
 }
 
 .infoLabel {
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: #9ca3af;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .infoValue {
     display: flex;
     align-items: center;
-    gap: 0.3rem;
-    font-size: 0.95rem;
-    font-weight: 600;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
     color: #111827;
 }
 
@@ -198,57 +225,63 @@
 .btnDetalhes {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.55rem 1.1rem;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
     border: 1px solid #e5e7eb;
-    border-radius: 8px;
+    border-radius: 10px;
     background: white;
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 1.125rem;
+    font-weight: 600;
     color: #374151;
     cursor: pointer;
     transition: background 0.2s;
 }
 
-.btnDetalhes:hover { background: #f9fafb; }
+.btnDetalhes:hover {
+    background: #f9fafb;
+}
 
 .btnRejeitar {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.55rem 1.25rem;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
     background: #ef4444;
     border: none;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
+    border-radius: 10px;
+    font-size: 1.125rem;
+    font-weight: 700;
     color: white;
     cursor: pointer;
     transition: background 0.2s;
 }
 
-.btnRejeitar:hover { background: #dc2626; }
+.btnRejeitar:hover {
+    background: #dc2626;
+}
 
 .btnAprovar {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.55rem 1.25rem;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
     background: #16a34a;
     border: none;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
+    border-radius: 10px;
+    font-size: 1.125rem;
+    font-weight: 700;
     color: white;
     cursor: pointer;
     transition: background 0.2s;
 }
 
-.btnAprovar:hover { background: #15803d; }
+.btnAprovar:hover {
+    background: #15803d;
+}
 
 .emptyMessage {
     text-align: center;
     color: #9ca3af;
-    font-size: 1rem;
-    padding: 3rem 0;
+    font-size: 1.25rem;
+    padding: 4rem 0;
 }
