@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     ArrowLeft,
     CheckCircle,
@@ -33,6 +33,14 @@ import {
 } from '../../components/ui/dialog';
 import { toast } from 'sonner';
 import styles from './styles.module.css';
+import { useQuery } from '@tanstack/react-query';
+import { getAllOrganizersRequest } from '../../services/admin/getAllOrganizersRequest';
+import { useGetMe } from '../../hooks/useGetMe';
+import { getLocalStorageRole } from '../../utils/localStorageRole';
+import { useNavigate } from 'react-router';
+import PageRoutesName from '../../constants/PageRoutesName';
+import { notify } from '../../adapters/toastHotAdapter';
+import type { AxiosError } from 'axios';
 
 interface SolicitacaoOrganizador {
     id: string;
@@ -128,6 +136,36 @@ const Detail = ({
 );
 
 export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (getLocalStorageRole() !== 'ADMIN') {
+            notify.error('Você não tem acesso a pagina de Administrador.');
+            navigate(PageRoutesName.home);
+        }
+    }, []);
+
+    const { data: user } = useGetMe();
+
+    const { data: allOrganizers } = useQuery({
+        queryKey: ['organizersRequest'],
+        queryFn: getAllOrganizersRequest,
+        enabled: () => user?.role !== 'admin',
+        retry: (failureCount, error) => {
+            const status = (error as AxiosError).response?.status;
+
+            if (status === 401 || status === 403) {
+                return false;
+            }
+
+            return failureCount < 2;
+        },
+    });
+
+    useEffect(() => {}, [allOrganizers]);
+
+    
+
     const [solicitacoes, setSolicitacoes] =
         useState<SolicitacaoOrganizador[]>(SOLICITACOES_MOCK);
     const [organizadores, setOrganizadores] =

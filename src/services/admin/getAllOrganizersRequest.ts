@@ -3,17 +3,7 @@ import type { apiResponseError } from '../../server/apiResponse';
 import api from '../../server/api';
 import ApiRoutesName from '../../constants/apiRoutesName';
 import { getLocalStorageToken } from '../../utils/localStorageToken';
-
-type OrganizerData = {
-    id: number;
-    name: string;
-    email: string;
-    phone_number: string;
-    reason: string;
-    status: string;
-    created_at: string;
-    updated_at: string;
-};
+import type { OrganizerData } from '../../types/OrganizerData';
 
 type AllOrganizersRequest = {
     current_page: number;
