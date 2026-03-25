@@ -157,7 +157,14 @@ export function Header() {
                             )}
 
                             {isOrganizador && (
-                                <button className={`${styles.itemNavbar}`}>
+                                <button
+                                    className={`${styles.itemNavbar}`}
+                                    onClick={() =>
+                                        handleNavigation(
+                                            PageRoutesName.organizer.organizerPage
+                                        )
+                                    }
+                                >
                                     <Building2Icon
                                         width={24}
                                         height={24}

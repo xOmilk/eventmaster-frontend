@@ -55,6 +55,23 @@ GET {{baseUrl}}/events
 ### LISTAR UM EVENTO QUALQUER
 GET {{baseUrl}}/events/1
 
+
+###Solicitar para ser um organizador
+POST {{baseUrl}}/organizer-requests
+Content-Type: application/json
+
+{
+    "name": "Organizador fulano",
+    "cpf": "123.456.789-00",
+    "email": "fulaninho@example.com",
+    "phone_number":"00010011001",
+    "reason":"Quero me tornar o melhor organizador de xique xique"
+}
+
+
+
+
+
 ### Criar um novo evento
 POST {{baseUrl}}/events
 Authorization: Bearer {{organizerUser.response.body.token}}
