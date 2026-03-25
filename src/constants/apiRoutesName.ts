@@ -20,6 +20,11 @@ const ApiRoutesName = {
     },
 
     admin: {
+        getAllOrganizersRequest: '/organizer-requests',
+        approveRequestOrganizer: (idOrganizer: number) =>
+            `/organizer-requests/${idOrganizer}/approve`,
+        rejectRequestOrganizer: (idOrganizer: number) =>
+            `/organizer-requests/${idOrganizer}/reject`,
         createNewOrganizerUser: '/organizers',
         getAllOrganizers: '/organizers',
         getOneOrganizer: (organizerId: number) => `/organizers/${organizerId}`,

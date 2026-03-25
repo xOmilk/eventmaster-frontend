@@ -1,0 +1,32 @@
+@baseUrl = https://api.event.matheusfelipe.dev/api
+
+### Rota logar como admin
+# @name adminUser
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+    "email":"admin@example.com",
+    "password":"password"
+}
+### GET adminUser
+GET {{baseUrl}}/user
+Authorization: Bearer {{adminUser.response.body.token}}
+
+
+
+
+
+
+### Recuperar lista de todas as solicitações de organizadores
+GET {{baseUrl}}/organizer-requests
+Authorization: Bearer {{adminUser.response.body.token}}
+
+
+### APROVAR pedidos de solicitações de organizadores
+PATCH {{baseUrl}}/organizer-requests/5/approve
+Authorization: Authorization: Bearer {{adminUser.response.body.token}}
+
+### REJEITAR pedidos de solicitações de organizadores
+PATCH {{baseUrl}}/organizer-requests/3/reject
+Authorization: Authorization: Bearer {{adminUser.response.body.token}}
