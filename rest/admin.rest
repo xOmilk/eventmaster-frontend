@@ -24,7 +24,7 @@ Authorization: Bearer {{adminUser.response.body.token}}
 
 
 ### APROVAR pedidos de solicitações de organizadores
-PATCH {{baseUrl}}/organizer-requests/2/approve
+PATCH {{baseUrl}}/organizer-requests/5/approve
 Authorization: Authorization: Bearer {{adminUser.response.body.token}}
 
 ### REJEITAR pedidos de solicitações de organizadores

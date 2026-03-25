@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+export const content = `import { useEffect, useState } from 'react';
 import {
     ArrowLeft,
     CheckCircle,
@@ -57,7 +57,7 @@ const Detail = ({
 }) => {
     if (!value) return null;
     return (
-        <div className={`${styles.detailWrapper} ${className}`}>
+        <div className={\`\${styles.detailWrapper} \${className}\`}>
             <label className={styles.detailLabel}>{label}</label>
             <div className={styles.detailValue}>{value}</div>
         </div>
@@ -164,19 +164,19 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
                             value="pendentes"
                             className={styles.tabTriggerScaled}
                         >
-                            Solicitações ({pendentes.length})
+                            Solicitações (\${pendentes.length})
                         </TabsTrigger>
                         <TabsTrigger
                             value="ativos"
                             className={styles.tabTriggerScaled}
                         >
-                            Organizadores Ativos ({ativos.length})
+                            Organizadores Ativos (\${ativos.length})
                         </TabsTrigger>
                         <TabsTrigger
                             value="historico"
                             className={styles.tabTriggerScaled}
                         >
-                            Histórico ({historico.length})
+                            Histórico (\${historico.length})
                         </TabsTrigger>
                     </TabsList>
 
@@ -250,7 +250,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
                                             <Button
                                                 variant="default"
                                                 disabled={approveMutation.isPending}
-                                                className={`${styles.flex1} ${styles.btnApprove}`}
+                                                className={\`\${styles.flex1} \${styles.btnApprove}\`}
                                                 onClick={() => aoAprovar(s.id)}
                                             >
                                                 <CheckCircle
@@ -305,7 +305,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
                                                     Status
                                                 </th>
                                                 <th
-                                                    className={`${styles.thStyle} ${styles.thRight}`}
+                                                    className={\`\${styles.thStyle} \${styles.thRight}\`}
                                                 >
                                                     Ações
                                                 </th>
@@ -317,7 +317,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
                                                 return (
                                                     <tr
                                                         key={org.id}
-                                                        className={`${styles.trBase} ${isAtivo ? styles.trAtivo : styles.trSuspenso}`}
+                                                        className={\`\${styles.trBase} \${isAtivo ? styles.trAtivo : styles.trSuspenso}\`}
                                                     >
                                                         <td className={styles.tdStyle}>
                                                             <div className={styles.flexColGap1}>
@@ -329,7 +329,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
                                                                 </span>
                                                             </div>
                                                         </td>
-                                                        <td className={`${styles.tdStyle} ${styles.contactCell}`}>
+                                                        <td className={\`\${styles.tdStyle} \${styles.contactCell}\`}>
                                                             <div className={styles.flexColGap1}>
                                                                 <div className={styles.infoItem}>
                                                                     <Mail className={styles.iconGray} /> <span>{org.email}</span>
@@ -354,16 +354,16 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
                                                         </td>
                                                         <td className={styles.tdStyle}>
                                                             <Badge
-                                                                className={`${styles.statusBadge} ${isAtivo ? styles.badgeAtivo : styles.badgeSuspenso}`}
+                                                                className={\`\${styles.statusBadge} \${isAtivo ? styles.badgeAtivo : styles.badgeSuspenso}\`}
                                                             >
                                                                 Ativo
                                                             </Badge>
                                                         </td>
-                                                        <td className={`${styles.tdStyle} ${styles.tdRight}`}>
+                                                        <td className={\`\${styles.tdStyle} \${styles.tdRight}\`}>
                                                             <Button
                                                                 variant="outline"
                                                                 onClick={() => toggleStatus(org.id, isAtivo)}
-                                                                className={`${styles.btnAction} ${isAtivo ? styles.btnSuspend : styles.btnReactivate}`}
+                                                                className={\`\${styles.btnAction} \${isAtivo ? styles.btnSuspend : styles.btnReactivate}\`}
                                                                 style={{ padding: '0.75rem 1.5rem', fontSize: '1.125rem' }}
                                                             >
                                                                 Suspender
@@ -432,7 +432,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
                             <div className={styles.dialogBody}>
                                 <div className={styles.dialogGrid}>
                                     <div
-                                        className={`${styles.colSpan2} ${styles.dialogOrgName}`}
+                                        className={\`\${styles.colSpan2} \${styles.dialogOrgName}\`}
                                     >
                                         {solicitacaoSelecionada.name}
                                     </div>
@@ -453,7 +453,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
                                     />
 
                                     <div
-                                        className={`${styles.colSpan2} ${styles.descContainer}`}
+                                        className={\`\${styles.colSpan2} \${styles.descContainer}\`}
                                     >
                                         <label className={styles.detailLabel}>
                                             Motivo
@@ -508,3 +508,6 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
         </>
     );
 }
+`;
+import { writeFileSync } from 'fs';
+writeFileSync('src/pages/ManageOrganizersPage/index.tsx', content);

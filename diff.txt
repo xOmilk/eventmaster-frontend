@@ -1,0 +1,624 @@
+diff --git a/src/pages/ManageOrganizersPage/index.tsx b/src/pages/ManageOrganizersPage/index.tsx
+index ca05b78..afaca05 100644
+--- a/src/pages/ManageOrganizersPage/index.tsx
++++ b/src/pages/ManageOrganizersPage/index.tsx
+@@ -33,92 +33,18 @@ import {
+ } from '../../components/ui/dialog';
+ import { toast } from 'sonner';
+ import styles from './styles.module.css';
+-import { useQuery } from '@tanstack/react-query';
++import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+ import { getAllOrganizersRequest } from '../../services/admin/getAllOrganizersRequest';
++import { approveRequestForOrganizer } from '../../services/admin/approveRequestForOrganizer';
++import { rejectRequestForOrganizer } from '../../services/admin/rejectRequestForOrganizer';
+ import { useGetMe } from '../../hooks/useGetMe';
+ import { getLocalStorageRole } from '../../utils/localStorageRole';
+ import { useNavigate } from 'react-router';
+ import PageRoutesName from '../../constants/PageRoutesName';
+ import { notify } from '../../adapters/toastHotAdapter';
+ import type { AxiosError } from 'axios';
+-
+-interface SolicitacaoOrganizador {
+-    id: string;
+-    nomeOrganizacao: string;
+-    email: string;
+-    telefone: string;
+-    cnpj: string;
+-    descricao: string;
+-    site: string;
+-    endereco: string;
+-    dataSolicitacao: string;
+-    status: 'pendente' | 'aprovado' | 'rejeitado';
+-}
+-interface Organizador {
+-    id: string;
+-    nomeOrganizacao: string;
+-    email: string;
+-    telefone: string;
+-    cnpj: string;
+-    dataAprovacao: string;
+-    totalEventos: number;
+-    receitaTotal: number;
+-    status: 'ativo' | 'suspenso';
+-}
+-
+-const SOLICITACOES_MOCK: SolicitacaoOrganizador[] = [
+-    {
+-        id: '1',
+-        nomeOrganizacao: 'Produtora ABC Eventos',
+-        email: 'contato@abceventos.com.br',
+-        telefone: '(11) 98888-8888',
+-        cnpj: '12.345.678/0001-90',
+-        descricao:
+-            'Produtora especializada em eventos corporativos e festivais de música eletrônica com mais de 10 anos de experiência no mercado.',
+-        site: 'https://www.abceventos.com.br',
+-        endereco: 'Av. Paulista, 1000 - São Paulo, SP',
+-        dataSolicitacao: '2025-11-20',
+-        status: 'pendente',
+-    },
+-    {
+-        id: '2',
+-        nomeOrganizacao: 'Teatro Nacional',
+-        email: 'admin@teatronacional.com',
+-        telefone: '(21) 97777-7777',
+-        cnpj: '98.765.432/0001-10',
+-        descricao:
+-            'Teatro com 50 anos de história, focado em espetáculos culturais e peças clássicas.',
+-        site: 'https://www.teatronacional.com',
+-        endereco: 'Centro - Rio de Janeiro, RJ',
+-        dataSolicitacao: '2025-11-18',
+-        status: 'pendente',
+-    },
+-];
+-
+-const ORGANIZADORES_MOCK: Organizador[] = [
+-    {
+-        id: '1',
+-        nomeOrganizacao: 'Live Nation Brasil',
+-        email: 'contato@livenation.com.br',
+-        telefone: '(11) 99999-9999',
+-        cnpj: '11.111.111/0001-11',
+-        dataAprovacao: '2025-01-15',
+-        totalEventos: 45,
+-        receitaTotal: 1250000,
+-        status: 'ativo',
+-    },
+-    {
+-        id: '2',
+-        nomeOrganizacao: 'Rock World',
+-        email: 'info@rockworld.com.br',
+-        telefone: '(11) 98888-8888',
+-        cnpj: '22.222.222/0001-22',
+-        dataAprovacao: '2025-03-10',
+-        totalEventos: 28,
+-        receitaTotal: 850000,
+-        status: 'ativo',
+-    },
+-];
++import type { OrganizerData } from '../../types/OrganizerData';
++import { filterOrganizersByStatus } from '../../utils/filterOrganizerByStatus';
+ 
+ const Detail = ({
+     label,
+@@ -126,24 +52,29 @@ const Detail = ({
+     className = '',
+ }: {
+     label: string;
+-    value: string;
++    value: string | undefined | null;
+     className?: string;
+-}) => (
+-    <div className={`${styles.detailWrapper} ${className}`}>
+-        <label className={styles.detailLabel}>{label}</label>
+-        <div className={styles.detailValue}>{value}</div>
+-    </div>
+-);
++}) => {
++    if (!value) return null;
++    return (
++        <div className={`\${styles.detailWrapper} \${className}`}>
++            <label className={styles.detailLabel}>{label}</label>
++            <div className={styles.detailValue}>{value}</div>
++        </div>
++    );
++};
+ 
+ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
++    // Refatorado para usar os tipos da API
+     const navigate = useNavigate();
++    const queryClient = useQueryClient();
+ 
+     useEffect(() => {
+         if (getLocalStorageRole() !== 'ADMIN') {
+             notify.error('Você não tem acesso a pagina de Administrador.');
+             navigate(PageRoutesName.home);
+         }
+-    }, []);
++    }, [navigate]);
+ 
+     const { data: user } = useGetMe();
+ 
+@@ -153,74 +84,59 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+         enabled: () => user?.role !== 'admin',
+         retry: (failureCount, error) => {
+             const status = (error as AxiosError).response?.status;
+-
+             if (status === 401 || status === 403) {
+                 return false;
+             }
+-
+             return failureCount < 2;
+         },
+     });
+ 
+-    useEffect(() => {}, [allOrganizers]);
+-
+-    const [solicitacoes, setSolicitacoes] =
+-        useState<SolicitacaoOrganizador[]>(SOLICITACOES_MOCK);
+-    const [organizadores, setOrganizadores] =
+-        useState<Organizador[]>(ORGANIZADORES_MOCK);
+-    const [solicitacaoSelecionada, setSolicitacaoSelecionada] =
+-        useState<SolicitacaoOrganizador | null>(null);
++    const [solicitacaoSelecionada, setSolicitacaoSelecionada] = useState<OrganizerData | null>(null);
+     const [abaAtual, setAbaAtual] = useState('pendentes');
+ 
+-    const pendentes = solicitacoes.filter((s) => s.status === 'pendente');
+-    const historico = solicitacoes.filter((s) => s.status !== 'pendente');
++    const organizersList = allOrganizers?.data || [];
++    
++    const pendentes = filterOrganizersByStatus(organizersList, 'pending');
++    const ativos = filterOrganizersByStatus(organizersList, 'approved');
++    const historico = organizersList.filter(
++        (org) => org.status === 'approved' || org.status === 'rejected'
++    );
++
++    const approveMutation = useMutation({
++        mutationFn: (id: number) => approveRequestForOrganizer(id),
++        onSuccess: (data) => {
++            toast.success(data?.message || 'Organizador aprovado com sucesso!');
++            queryClient.invalidateQueries({ queryKey: ['organizersRequest'] });
++            setSolicitacaoSelecionada(null);
++        },
++        onError: () => {
++            toast.error('Erro ao aprovar organizador.');
++        }
++    });
+ 
+-    const aoAprovar = (id: string) => {
+-        const item = solicitacoes.find((s) => s.id === id);
+-        if (!item) return;
+-        setSolicitacoes((p) =>
+-            p.map((s) => (s.id === id ? { ...s, status: 'aprovado' } : s))
+-        );
+-        setOrganizadores((p) => [
+-            {
+-                id: crypto.randomUUID(),
+-                nomeOrganizacao: item.nomeOrganizacao,
+-                email: item.email,
+-                telefone: item.telefone,
+-                cnpj: item.cnpj,
+-                dataAprovacao: new Date().toISOString().split('T')[0],
+-                totalEventos: 0,
+-                receitaTotal: 0,
+-                status: 'ativo',
+-            },
+-            ...p,
+-        ]);
+-        setSolicitacaoSelecionada(null);
+-        toast.success(`${item.nomeOrganizacao} foi aprovado!`);
++    const rejectMutation = useMutation({
++        mutationFn: (id: number) => rejectRequestForOrganizer(id),
++        onSuccess: (message) => {
++            toast.info(typeof message === 'string' ? message : 'Solicitação rejeitada.');
++            queryClient.invalidateQueries({ queryKey: ['organizersRequest'] });
++            setSolicitacaoSelecionada(null);
++        },
++        onError: () => {
++            toast.error('Erro ao rejeitar organizador.');
++        }
++    });
++
++    const aoAprovar = (id: number) => {
++        approveMutation.mutate(id);
+     };
+ 
+-    const aoRejeitar = (id: string) => {
+-        const item = solicitacoes.find((s) => s.id === id);
+-        if (!item) return;
+-        setSolicitacoes((p) =>
+-            p.map((s) => (s.id === id ? { ...s, status: 'rejeitado' } : s))
+-        );
+-        setSolicitacaoSelecionada(null);
+-        toast.info(`Solicitação de ${item.nomeOrganizacao} rejeitada.`);
++    const aoRejeitar = (id: number) => {
++        rejectMutation.mutate(id);
+     };
+ 
+-    const toggleStatus = (id: string, isAtivo: boolean) => {
++    const toggleStatus = (id: number, isAtivo: boolean) => {
+         if (isAtivo && !confirm('Deseja suspender este organizador?')) return;
+-        setOrganizadores((p) =>
+-            p.map((o) =>
+-                o.id === id
+-                    ? { ...o, status: isAtivo ? 'suspenso' : 'ativo' }
+-                    : o
+-            )
+-        );
+-        toast[isAtivo ? 'info' : 'success'](
+-            isAtivo ? 'Organizador suspenso.' : 'Organizador reativado.'
+-        );
++        toast.error('Funcionalidade de suspender ainda não integrada com a API.');
+     };
+ 
+     return (
+@@ -255,13 +171,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                             value="ativos"
+                             className={styles.tabTriggerScaled}
+                         >
+-                            Organizadores Ativos (
+-                            {
+-                                organizadores.filter(
+-                                    (o) => o.status === 'ativo'
+-                                ).length
+-                            }
+-                            )
++                            Organizadores Ativos ({ativos.length})
+                         </TabsTrigger>
+                         <TabsTrigger
+                             value="historico"
+@@ -286,14 +196,14 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                                             styles.iconSize5
+                                                         }
+                                                     />{' '}
+-                                                    {s.nomeOrganizacao}
++                                                    {s.name}
+                                                 </CardTitle>
+                                                 <CardDescription
+                                                     className={styles.cardDesc}
+                                                 >
+                                                     Solicitado em{' '}
+                                                     {new Date(
+-                                                        s.dataSolicitacao
++                                                        s.created_at
+                                                     ).toLocaleDateString(
+                                                         'pt-BR'
+                                                     )}
+@@ -318,13 +228,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                                 <Phone
+                                                     className={styles.iconSize4}
+                                                 />{' '}
+-                                                {s.telefone}
+-                                            </div>
+-                                            <div className={styles.infoItem}>
+-                                                <FileText
+-                                                    className={styles.iconSize4}
+-                                                />{' '}
+-                                                CNPJ: {s.cnpj}
++                                                {s.phone_number}
+                                             </div>
+                                         </div>
+                                         <div className={styles.actionButtons}>
+@@ -342,7 +246,8 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                             </Button>
+                                             <Button
+                                                 variant="default"
+-                                                className={`${styles.flex1} ${styles.btnApprove}`}
++                                                disabled={approveMutation.isPending}
++                                                className={`\${styles.flex1} \${styles.btnApprove}`}
+                                                 onClick={() => aoAprovar(s.id)}
+                                             >
+                                                 <CheckCircle
+@@ -352,6 +257,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                             </Button>
+                                             <Button
+                                                 variant="destructive"
++                                                disabled={rejectMutation.isPending}
+                                                 className={styles.flex1}
+                                                 style={{
+                                                     flex: '0.2',
+@@ -390,20 +296,19 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                                     Status
+                                                 </th>
+                                                 <th
+-                                                    className={`${styles.thStyle} ${styles.thRight}`}
++                                                    className={`\${styles.thStyle} \${styles.thRight}`}
+                                                 >
+                                                     Ações
+                                                 </th>
+                                             </tr>
+                                         </thead>
+                                         <tbody className={styles.tableBody}>
+-                                            {organizadores.map((org) => {
+-                                                const isAtivo =
+-                                                    org.status === 'ativo';
++                                            {ativos.map((org) => {
++                                                const isAtivo = true;
+                                                 return (
+                                                     <tr
+                                                         key={org.id}
+-                                                        className={`${styles.trBase} ${isAtivo ? styles.trAtivo : styles.trSuspenso}`}
++                                                        className={`\${styles.trBase} \${isAtivo ? styles.trAtivo : styles.trSuspenso}`}
+                                                     >
+                                                         <td
+                                                             className={
+@@ -420,26 +325,12 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                                                         styles.orgName
+                                                                     }
+                                                                 >
+-                                                                    {
+-                                                                        org.nomeOrganizacao
+-                                                                    }
+-                                                                </span>
+-                                                                <span
+-                                                                    className={
+-                                                                        styles.cnpjBadge
+-                                                                    }
+-                                                                >
+-                                                                    <FileText
+-                                                                        className={
+-                                                                            styles.iconTiny
+-                                                                        }
+-                                                                    />{' '}
+-                                                                    {org.cnpj}
++                                                                    {org.name}
+                                                                 </span>
+                                                             </div>
+                                                         </td>
+                                                         <td
+-                                                            className={`${styles.tdStyle} ${styles.contactCell}`}
++                                                            className={`\${styles.tdStyle} \${styles.contactCell}`}
+                                                         >
+                                                             <div
+                                                                 className={
+@@ -478,7 +369,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                                                         }
+                                                                     >
+                                                                         {
+-                                                                            org.telefone
++                                                                            org.phone_number
+                                                                         }
+                                                                     </span>
+                                                                 </div>
+@@ -506,61 +397,12 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                                                         }
+                                                                     >
+                                                                         {new Date(
+-                                                                            org.dataAprovacao
++                                                                            org.updated_at
+                                                                         ).toLocaleDateString(
+                                                                             'pt-BR'
+                                                                         )}
+                                                                     </span>
+                                                                 </div>
+-                                                                <div
+-                                                                    className={
+-                                                                        styles.statsFlex
+-                                                                    }
+-                                                                >
+-                                                                    <div
+-                                                                        className={
+-                                                                            styles.statBlock
+-                                                                        }
+-                                                                    >
+-                                                                        <span
+-                                                                            className={
+-                                                                                styles.statLabel
+-                                                                            }
+-                                                                        >
+-                                                                            Eventos
+-                                                                        </span>
+-                                                                        <span
+-                                                                            className={
+-                                                                                styles.statValueBlue
+-                                                                            }
+-                                                                        >
+-                                                                            {
+-                                                                                org.totalEventos
+-                                                                            }
+-                                                                        </span>
+-                                                                    </div>
+-                                                                    <div
+-                                                                        className={`${styles.statBlock} ${styles.statBorderLeft}`}
+-                                                                    >
+-                                                                        <span
+-                                                                            className={
+-                                                                                styles.statLabel
+-                                                                            }
+-                                                                        >
+-                                                                            Receita
+-                                                                        </span>
+-                                                                        <span
+-                                                                            className={
+-                                                                                styles.statValueGreen
+-                                                                            }
+-                                                                        >
+-                                                                            R${' '}
+-                                                                            {org.receitaTotal.toLocaleString(
+-                                                                                'pt-BR'
+-                                                                            )}
+-                                                                        </span>
+-                                                                    </div>
+-                                                                </div>
+                                                             </div>
+                                                         </td>
+                                                         <td
+@@ -569,29 +411,23 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                                             }
+                                                         >
+                                                             <Badge
+-                                                                className={`${styles.statusBadge} ${isAtivo ? styles.badgeAtivo : styles.badgeSuspenso}`}
++                                                                className={`\${styles.statusBadge} \${isAtivo ? styles.badgeAtivo : styles.badgeSuspenso}`}
+                                                             >
+-                                                                {isAtivo
+-                                                                    ? 'Ativo'
+-                                                                    : 'Suspenso'}
++                                                                Ativo
+                                                             </Badge>
+                                                         </td>
+                                                         <td
+-                                                            className={`${styles.tdStyle} ${styles.tdRight}`}
++                                                            className={`\${styles.tdStyle} \${styles.tdRight}`}
+                                                         >
+                                                             <Button
+-                                                                variant={
+-                                                                    isAtivo
+-                                                                        ? 'outline'
+-                                                                        : 'default'
+-                                                                }
++                                                                variant="outline"
+                                                                 onClick={() =>
+                                                                     toggleStatus(
+                                                                         org.id,
+                                                                         isAtivo
+                                                                     )
+                                                                 }
+-                                                                className={`${styles.btnAction} ${isAtivo ? styles.btnSuspend : styles.btnReactivate}`}
++                                                                className={`\${styles.btnAction} \${isAtivo ? styles.btnSuspend : styles.btnReactivate}`}
+                                                                 style={{
+                                                                     padding:
+                                                                         '0.75rem 1.5rem',
+@@ -599,9 +435,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                                                         '1.125rem',
+                                                                 }}
+                                                             >
+-                                                                {isAtivo
+-                                                                    ? 'Suspender Conta'
+-                                                                    : 'Reativar Conta'}
++                                                                Suspender Conta
+                                                             </Button>
+                                                         </td>
+                                                     </tr>
+@@ -627,16 +461,16 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                                     styles.historicoTitle
+                                                 }
+                                             >
+-                                                {s.nomeOrganizacao}
++                                                {s.name}
+                                             </CardTitle>
+                                             <Badge
+                                                 variant={
+-                                                    s.status === 'aprovado'
++                                                    s.status === 'approved'
+                                                         ? 'default'
+                                                         : 'destructive'
+                                                 }
+                                             >
+-                                                {s.status === 'aprovado'
++                                                {s.status === 'approved'
+                                                     ? 'Aprovado'
+                                                     : 'Rejeitado'}
+                                             </Badge>
+@@ -663,17 +497,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                             >
+                                                 Telefone:
+                                             </span>{' '}
+-                                            {s.telefone}
+-                                        </div>
+-                                        <div>
+-                                            <span
+-                                                className={
+-                                                    styles.historicoLabel
+-                                                }
+-                                            >
+-                                                CNPJ:
+-                                            </span>{' '}
+-                                            {s.cnpj}
++                                            {s.phone_number}
+                                         </div>
+                                     </CardContent>
+                                 </Card>
+@@ -702,9 +526,9 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                             <div className={styles.dialogBody}>
+                                 <div className={styles.dialogGrid}>
+                                     <div
+-                                        className={`${styles.colSpan2} ${styles.dialogOrgName}`}
++                                        className={`\${styles.colSpan2} \${styles.dialogOrgName}`}
+                                     >
+-                                        {solicitacaoSelecionada.nomeOrganizacao}
++                                        {solicitacaoSelecionada.name}
+                                     </div>
+ 
+                                     <Detail
+@@ -713,61 +537,25 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                     />
+                                     <Detail
+                                         label="Telefone"
+-                                        value={solicitacaoSelecionada.telefone}
+-                                    />
+-                                    <Detail
+-                                        label="CNPJ"
+-                                        value={solicitacaoSelecionada.cnpj}
++                                        value={solicitacaoSelecionada.phone_number}
+                                     />
+                                     <Detail
+                                         label="Data do Pedido"
+                                         value={new Date(
+-                                            solicitacaoSelecionada.dataSolicitacao
++                                            solicitacaoSelecionada.created_at
+                                         ).toLocaleDateString('pt-BR')}
+                                     />
+ 
+-                                    {solicitacaoSelecionada.site && (
+-                                        <div
+-                                            className={`${styles.colSpan2} ${styles.linkContainer}`}
+-                                        >
+-                                            <label
+-                                                className={styles.detailLabel}
+-                                            >
+-                                                Site
+-                                            </label>
+-                                            <a
+-                                                href={
+-                                                    solicitacaoSelecionada.site
+-                                                }
+-                                                className={styles.siteLink}
+-                                                target="_blank"
+-                                                rel="noreferrer"
+-                                            >
+-                                                {solicitacaoSelecionada.site}
+-                                            </a>
+-                                        </div>
+-                                    )}
+-
+-                                    {solicitacaoSelecionada.endereco && (
+-                                        <Detail
+-                                            label="Endereço"
+-                                            value={
+-                                                solicitacaoSelecionada.endereco
+-                                            }
+-                                            className={styles.colSpan2}
+-                                        />
+-                                    )}
+-
+                                     <div
+-                                        className={`${styles.colSpan2} ${styles.descContainer}`}
++                                        className={`\${styles.colSpan2} \${styles.descContainer}`}
+                                     >
+                                         <label className={styles.detailLabel}>
+-                                            Descrição
++                                            Motivo
+                                         </label>
+                                         <div className={styles.descBox}>
+                                             <p className={styles.descText}>
+                                                 {
+-                                                    solicitacaoSelecionada.descricao
++                                                    solicitacaoSelecionada.reason
+                                                 }
+                                             </p>
+                                         </div>
+@@ -787,6 +575,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                     <Button
+                                         variant="destructive"
+                                         className={styles.btnLargeDest}
++                                        disabled={rejectMutation.isPending}
+                                         onClick={() =>
+                                             aoRejeitar(
+                                                 solicitacaoSelecionada.id
+@@ -797,6 +586,7 @@ export function ManageOrganizersPage({ onBack }: { onBack: () => void }) {
+                                     </Button>
+                                     <Button
+                                         className={styles.btnLargeConfirm}
++                                        disabled={approveMutation.isPending}
+                                         onClick={() =>
+                                             aoAprovar(solicitacaoSelecionada.id)
+                                         }
