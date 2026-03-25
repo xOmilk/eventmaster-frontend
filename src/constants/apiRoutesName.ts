@@ -7,6 +7,10 @@ const ApiRoutesName = {
         resetPassword: '/reset-passowrd',
     },
 
+    user: {
+        becomeAnOrganizer: '/organizer-requests',
+    },
+
     events: {
         getAllEvents: '/events',
         getOneEvent: (idEvent: number) => `/events/${idEvent}`,
@@ -16,7 +20,7 @@ const ApiRoutesName = {
     },
 
     admin: {
-        createNewOrganizerUser:"organizers",
+        createNewOrganizerUser: '/organizers',
         getAllOrganizers: '/organizers',
         getOneOrganizer: (organizerId: number) => `/organizers/${organizerId}`,
         promoteUserToAdmin: (userId: number) => `/admins/${userId}`,
