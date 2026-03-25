@@ -1,14 +1,14 @@
-import { 
-    Calendar, 
-    MapPin, 
-    Users, 
-    Search, 
-    Filter, 
+import {
+    Calendar,
+    MapPin,
+    Users,
+    Search,
+    Filter,
     ChevronDown,
     LayoutGrid,
     Ticket,
     DollarSign,
-    TrendingUp
+    TrendingUp,
 } from 'lucide-react';
 import styles from './styles.module.css';
 import { getLocalStorageRole } from '../../utils/localStorageRole';
@@ -35,11 +35,13 @@ export function HomePage() {
             <header className={styles.header}>
                 <div className={styles.titleSection}>
                     <h1 className={styles.pageTitle}>
-                        {userRole === 'ADMIN' ? 'Gerenciar Eventos' : 'Descubra Eventos Incríveis'}
+                        {userRole === 'ADMIN'
+                            ? 'Gerenciar Eventos'
+                            : 'Descubra Eventos Incríveis'}
                     </h1>
                     <p className={styles.pageSubtitle}>
-                        {userRole === 'ADMIN' 
-                            ? 'Visualize e gerencie todos os eventos da plataforma' 
+                        {userRole === 'ADMIN'
+                            ? 'Visualize e gerencie todos os eventos da plataforma'
                             : 'Encontre os melhores shows, teatro, esportes e muito mais'}
                     </p>
                 </div>
@@ -47,9 +49,9 @@ export function HomePage() {
                 <div className={styles.filterSection}>
                     <div className={styles.searchWrapper}>
                         <Search className={styles.searchIcon} size={20} />
-                        <input 
-                            type="text" 
-                            placeholder="Buscar eventos..." 
+                        <input
+                            type="text"
+                            placeholder="Buscar eventos..."
                             className={styles.searchInput}
                         />
                     </div>
@@ -64,7 +66,9 @@ export function HomePage() {
                     <div className={styles.statsGrid}>
                         <div className={styles.statsCard}>
                             <div className={styles.statsInfo}>
-                                <span className={styles.statsLabel}>Total de Eventos</span>
+                                <span className={styles.statsLabel}>
+                                    Total de Eventos
+                                </span>
                                 <span className={styles.statsValue}>6</span>
                             </div>
                             <div className={styles.statsIconWrapper}>
@@ -74,7 +78,9 @@ export function HomePage() {
 
                         <div className={styles.statsCard}>
                             <div className={styles.statsInfo}>
-                                <span className={styles.statsLabel}>Ingressos Vendidos</span>
+                                <span className={styles.statsLabel}>
+                                    Ingressos Vendidos
+                                </span>
                                 <span className={styles.statsValue}>530</span>
                             </div>
                             <div className={styles.statsIconWrapper}>
@@ -84,8 +90,12 @@ export function HomePage() {
 
                         <div className={styles.statsCard}>
                             <div className={styles.statsInfo}>
-                                <span className={styles.statsLabel}>Receita Total</span>
-                                <span className={styles.statsValue}>R$ 88.700</span>
+                                <span className={styles.statsLabel}>
+                                    Receita Total
+                                </span>
+                                <span className={styles.statsValue}>
+                                    R$ 88.700
+                                </span>
                             </div>
                             <div className={styles.statsIconWrapper}>
                                 <DollarSign size={24} />
@@ -94,7 +104,9 @@ export function HomePage() {
 
                         <div className={styles.statsCard}>
                             <div className={styles.statsInfo}>
-                                <span className={styles.statsLabel}>Taxa de Ocupação</span>
+                                <span className={styles.statsLabel}>
+                                    Taxa de Ocupação
+                                </span>
                                 <span className={styles.statsValue}>23%</span>
                             </div>
                             <div className={styles.statsIconWrapper}>
@@ -152,9 +164,7 @@ export function HomePage() {
 
                                 {userRole === 'ADMIN' && (
                                     <div className={styles.infoItem}>
-                                        <Users
-                                            className={styles.infoIcon}
-                                        />
+                                        <Users className={styles.infoIcon} />
                                         <span>
                                             {event.totalTickets -
                                                 event.availableTickets}{' '}
