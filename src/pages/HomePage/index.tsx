@@ -26,7 +26,7 @@ export function HomePage() {
     const userRole = getLocalStorageRole();
     const navigate = useNavigate();
 
-    const { data: events } = useQuery({
+    const { data: eventsRequest } = useQuery({
         queryKey: ['eventsHome'],
         queryFn: getAllEvents,
         refetchInterval: 1000 * 60 * 3, // 3 minutos,
@@ -38,6 +38,9 @@ export function HomePage() {
     useEffect(() => {
         console.log(userData);
     }, [userData]);
+    useEffect(() => {
+        console.log(eventsRequest);
+    }, [eventsRequest]);
 
     return (
         <div className={styles.containerMain}>

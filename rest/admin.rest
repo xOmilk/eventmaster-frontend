@@ -33,3 +33,11 @@ Authorization: Authorization: Bearer {{adminUser.response.body.token}}
 ### REJEITAR pedidos de solicitações de organizadores
 PATCH {{baseUrl}}/organizer-requests/3/reject
 Authorization: Authorization: Bearer {{adminUser.response.body.token}}
+
+
+
+
+### Criar novos locais
+POST {{baseUrl}}/locals
+Authorization: Authorization: Bearer {{adminUser.response.body.token}}
+Content-Type: application/json
