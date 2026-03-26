@@ -16,6 +16,9 @@ Authorization: Bearer {{adminUser.response.body.token}}
 
 
 
+### Recuperar lista de todos os organizadores
+GET {{baseUrl}}/organizers
+Authorization: Bearer {{adminUser.response.body.token}}
 
 
 ### Recuperar lista de todas as solicitações de organizadores
