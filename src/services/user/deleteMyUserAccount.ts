@@ -1,4 +1,4 @@
-import { HttpStatusCode, type AxiosError } from 'axios';
+import { type AxiosError } from 'axios';
 import type { apiResponseError } from '../../server/apiResponse';
 import api from '../../server/api';
 import ApiRoutesName from '../../constants/apiRoutesName';
