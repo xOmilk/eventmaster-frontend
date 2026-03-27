@@ -9,8 +9,10 @@ import type { apiResponseError } from '../../server/apiResponse';
 import { handleApiErrors } from '../../utils/handleApiErrors';
 import { requestToBecomeAnOrganizer } from '../../services/user/requestToBecomeAnOrganizer';
 import { notify } from '../../adapters/toastHotAdapter';
-
 import styles from './style.module.css';
+import { useGetMe } from '../../hooks/useGetMe';
+import { useEffect } from 'react';
+import PageRoutesName from '../../constants/PageRoutesName';
 
 const formOrganizerSchema = z.object({
     name: z
@@ -31,6 +33,19 @@ type FormFields = z.infer<typeof formOrganizerSchema>;
 
 export function SejaOrganizadorPage() {
     const navigate = useNavigate();
+
+    const { data: user } = useGetMe();
+
+    useEffect(() => {
+        if (
+            (user?.role === 'admin',
+            user?.role === 'organizer',
+            user?.role === 'staff')
+        ) {
+            notify.warning('Você não possui acesso a essa página');
+            navigate(PageRoutesName.home);
+        }
+    }, [user]);
 
     const {
         register,
@@ -87,10 +102,7 @@ export function SejaOrganizadorPage() {
                     Voltar
                 </button>
 
-                {/* ... (todo o resto do seu formulário continua exatamente igual) ... */}
-
                 <div className={styles.card}>
-                    {/* Apenas copiando o começo para você se achar, mantenha o resto do HTML igualzinho */}
                     <div className={styles.cardHeader}>
                         <h1 className={styles.cardTitle}>
                             <Building2 size={28} className={styles.titleIcon} />
