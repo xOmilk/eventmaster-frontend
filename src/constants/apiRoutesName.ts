@@ -10,6 +10,8 @@ const ApiRoutesName = {
     user: {
         becomeAnOrganizer: '/organizer-requests',
         deleteMyAccount: '/user',
+        getPurchaseHistory: '/purchases',
+        getPurchaseDetail: (purchaseId: number) => `/purchases/${purchaseId}`,
     },
 
     events: {
