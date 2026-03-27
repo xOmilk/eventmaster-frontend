@@ -3,7 +3,6 @@ import type { apiResponse, apiResponseError } from '../../server/apiResponse';
 import api from '../../server/api';
 import ApiRoutesName from '../../constants/apiRoutesName';
 import { getLocalStorageToken } from '../../utils/localStorageToken';
-import { unknown } from 'zod';
 
 type CreateNewStaffDTO = {
     name: string;
@@ -14,13 +13,15 @@ type CreateNewStaffDTO = {
 
 export async function createNewStaff(newStaff: CreateNewStaffDTO) {
     try {
-        const response = await api.post(ApiRoutesName.admin.createNewStaff, {
-            ...newStaff,
-
-            headers: {
-                Authorization: getLocalStorageToken(),
-            },
-        });
+        const response = await api.post(
+            ApiRoutesName.admin.createNewStaff,
+            newStaff,
+            {
+                headers: {
+                    Authorization: getLocalStorageToken(),
+                },
+            }
+        );
 
         return response.data as apiResponse;
     } catch (err) {
