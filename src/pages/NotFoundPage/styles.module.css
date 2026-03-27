@@ -1,0 +1,372 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    gap: 0;
+}
+
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    background: white;
+    border-radius: 1rem;
+    padding: 4rem 3rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    max-width: 95vw;
+    width: 100%;
+    height: auto;
+}
+
+.iconWrapper {
+    font-size: 6.5rem;
+    opacity: 0.8;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.errorCode {
+    font-size: 5.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+    line-height: 1;
+}
+
+.title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #222;
+    margin: 0;
+    text-align: center;
+}
+
+.description {
+    font-size: 1.15rem;
+    color: #666;
+    text-align: center;
+    line-height: 1.8;
+    margin: 0;
+    max-width: 550px;
+}
+
+.buttonsWrapper {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2.2rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.08rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.primaryButton {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.primaryButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.secondaryButton {
+    background: white;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.secondaryButton:hover {
+    background: #f0f4ff;
+    transform: translateY(-2px);
+}
+
+.decorativeElement {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+}
+
+.circle1 {
+    width: 450px;
+    height: 450px;
+    background: #667eea;
+    top: -100px;
+    right: -100px;
+}
+
+.circle2 {
+    width: 300px;
+    height: 300px;
+    background: #764ba2;
+    bottom: -75px;
+    left: -75px;
+}
+
+.suggestionsWrapper {
+    margin-top: 2rem;
+    text-align: center;
+    background: #f9fafb;
+    padding: 2.25rem;
+    border-radius: 0.75rem;
+    border-left: 4px solid #667eea;
+    width: 100%;
+}
+
+.suggestionsTitle {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #667eea;
+    text-transform: uppercase;
+    margin: 0 0 0.75rem 0;
+    letter-spacing: 0.5px;
+}
+
+.suggestionsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.suggestionItem {
+    font-size: 1.02rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+    .container {
+        padding: 0.75rem;
+    }
+
+    .contentWrapper {
+        padding: 3.5rem 2.5rem;
+        gap: 2.5rem;
+        max-width: 85vw;
+    }
+
+    .iconWrapper {
+        font-size: 7rem;
+    }
+
+    .errorCode {
+        font-size: 6rem;
+    }
+
+    .title {
+        font-size: 2.6rem;
+    }
+
+    .description {
+        font-size: 1.2rem;
+        max-width: 600px;
+    }
+
+    .button {
+        padding: 0.95rem 2.3rem;
+        font-size: 1.08rem;
+    }
+
+    .suggestionsWrapper {
+        padding: 2.5rem;
+    }
+
+    .suggestionsTitle {
+        font-size: 1.1rem;
+    }
+
+    .suggestionItem {
+        font-size: 1.05rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .contentWrapper {
+        padding: 5rem 4rem;
+        gap: 3rem;
+        max-width: 90vw;
+    }
+
+    .iconWrapper {
+        font-size: 8rem;
+    }
+
+    .errorCode {
+        font-size: 7rem;
+    }
+
+    .title {
+        font-size: 3.2rem;
+    }
+
+    .description {
+        font-size: 1.35rem;
+        max-width: 700px;
+    }
+
+    .button {
+        padding: 1.1rem 3rem;
+        font-size: 1.15rem;
+    }
+
+    .suggestionsWrapper {
+        padding: 3rem;
+        width: 100%;
+    }
+
+    .suggestionsTitle {
+        font-size: 1.2rem;
+    }
+
+    .suggestionItem {
+        font-size: 1.15rem;
+    }
+}
+
+@media (min-width: 1440px) {
+    .contentWrapper {
+        padding: 6rem 5rem;
+        gap: 3.5rem;
+        max-width: 1200px;
+    }
+
+    .iconWrapper {
+        font-size: 9rem;
+    }
+
+    .errorCode {
+        font-size: 8rem;
+    }
+
+    .title {
+        font-size: 3.8rem;
+    }
+
+    .description {
+        font-size: 1.5rem;
+        max-width: 800px;
+    }
+
+    .button {
+        padding: 1.25rem 3.5rem;
+        font-size: 1.25rem;
+    }
+
+    .suggestionsWrapper {
+        padding: 3.5rem;
+    }
+
+    .suggestionsTitle {
+        font-size: 1.35rem;
+        margin-bottom: 1rem;
+    }
+
+    .suggestionItem {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .container {
+        min-height: auto;
+        padding: 0.5rem;
+    }
+
+    .contentWrapper {
+        padding: 2.5rem 1.5rem;
+        gap: 1.5rem;
+        border-radius: 0.75rem;
+    }
+
+    .errorCode {
+        font-size: 3.5rem;
+    }
+
+    .title {
+        font-size: 1.6rem;
+    }
+
+    .description {
+        font-size: 0.95rem;
+        max-width: 100%;
+        line-height: 1.7;
+    }
+
+    .buttonsWrapper {
+        gap: 0.75rem;
+        width: 100%;
+    }
+
+    .button {
+        padding: 0.7rem 1.3rem;
+        font-size: 0.95rem;
+        flex: 1;
+    }
+
+    .suggestionsWrapper {
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    .suggestionsTitle {
+        font-size: 0.9rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .suggestionItem {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    .circle1 {
+        width: 250px;
+        height: 250px;
+        top: -30px;
+        right: -30px;
+    }
+
+    .circle2 {
+        width: 150px;
+        height: 150px;
+        bottom: -20px;
+        left: -20px;
+    }
+}
+
